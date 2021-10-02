@@ -1,0 +1,53 @@
+/*Omar Nassar
+ *Portland State University CS163
+ *October 1, 2021
+ *Functions associated with ADT for social media feed
+ */
+
+#include <cstring>
+#include <cctype>
+#include <iostream>
+#include <cstdlib>
+
+#include "posts_comments.h"
+
+feed::feed() {
+  head = nullptr;
+}
+
+feed::~feed() {
+  delete head;
+  head = nullptr;
+}
+
+bool feed::create_post(char * title, char * text, char * name, char * source) {
+  return false;
+}
+
+bool feed::display_all() {
+  return false;
+}
+
+bool feed::like_post(char * title) {
+  return false;
+}
+
+bool feed::display_by_likes(int likes) {
+  return false;
+}
+
+bool feed::create_comment(char * title, char * name, char * text) {
+  return false;
+}
+
+bool feed::like_comment(char * title) {
+  return false;
+}
+
+bool feed::display_comments(char * title) {
+  return false;
+}
+
+bool feed::remove_post(char * title) {
+  return false;
+}
