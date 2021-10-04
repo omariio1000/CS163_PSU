@@ -27,19 +27,19 @@ struct post_node {
 };
 
 class feed {//ADT class for social media feed
-
+  
 public:
   feed(); //constructor
   ~feed(); //destructor
   bool create_post(char * title, char * text, char * name, char * source); //wrapper for next line
-  bool create_post(char * title, char * text, char * name, char * source, post_node * post); //function for post creation
-  bool display_all(post_node * post); //function to display all posts and comments
-  bool like_post(char * title, post_node * post); //function to like post
-  int display_by_likes(int likes, post_node * post); //function to only display posts with certain like counts and their comments
-  bool create_comment(char * title, char * name, char * text, post_node * post); //function to comment on post
-  bool like_comment (char * title, post_node * post); //function to like comment
-  bool display_comments(char * title, post_node * post); //function to display comments on certain post
-  bool remove_post(char * title, post_node * post); //function to remove post and associated comments based on title
+  bool create_post(char * title, char * text, char * name, char * source, post_node *& post); //function for post creation
+  bool display_all(); //function to display all posts and comments
+  bool like_post(char * title, post_node *& post); //function to like post
+  int display_by_likes(int likes, post_node *& post); //function to only display posts with certain like counts and their comments
+  bool create_comment(char * title, char * name, char * text, post_node *& post); //function to comment on post
+  bool like_comment (char * title, post_node *& post); //function to like comment
+  bool display_comments(char * title, post_node *& post); //function to display comments on certain post
+  bool remove_post(char * title, post_node *& post); //function to remove post and associated comments based on title
   
 private:
   post_node * head; //head pointer for first post

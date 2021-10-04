@@ -24,7 +24,7 @@ bool feed::create_post(char * title, char * text, char * name, char * source) {
   return(title, text, name, source, head);
 }
 
-bool feed::create_post(char * title, char * text, char * name, char * source, post_node * post) {
+bool feed::create_post(char * title, char * text, char * name, char * source, post_node *& post) {
   if (!post) {
 	post = new post_node();
 	post -> title = title;
@@ -37,30 +37,30 @@ bool feed::create_post(char * title, char * text, char * name, char * source, po
   return false;
 }
 
-bool feed::display_all(post_node * post) {
+bool feed::display_all() {
   return false;
 }
 
-bool feed::like_post(char * title, post_node * post) {
+bool feed::like_post(char * title, post_node *& post) {
   return false;
 }
 
-int feed::display_by_likes(int likes, post_node * post) {
+int feed::display_by_likes(int likes, post_node *& post) {
   return likes;
 }
 
-bool feed::create_comment(char * title, char * name, char * text, post_node * post) {
+bool feed::create_comment(char * title, char * name, char * text, post_node *& post) {
   return false;
 }
 
-bool feed::like_comment(char * title, post_node * post) {
+bool feed::like_comment(char * title, post_node *& post) {
   return false;
 }
 
-bool feed::display_comments(char * title, post_node * post) {
+bool feed::display_comments(char * title, post_node *& post) {
   return false;
 }
 
-bool feed::remove_post(char * title, post_node * post) {
+bool feed::remove_post(char * title, post_node *& post) {
   return false;
 }
