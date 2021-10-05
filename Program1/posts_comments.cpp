@@ -20,17 +20,17 @@ feed::~feed() {
   head = nullptr;
 }
 
-bool feed::create_post(char * title, char * text, char * name, char * source) {
-  return(title, text, name, source, head);
+bool feed::create_post(char * inTitle, char * inText, char * inName, char * inSource) {
+  return(inTitle, inText, inName, inSource, head);
 }
 
-bool feed::create_post(char * title, char * text, char * name, char * source, post_node *& post) {
+bool feed::create_post(char * inTitle, char * inText, char * inName, char * inSource, post_node *& post) {
   if (!post) {
 	post = new post_node();
-	post -> title = title;
-	post -> text = text;
-	post -> name = name;
-	post -> source = source;
+	post -> title = inTitle;
+	post -> text = inText;
+	post -> name = inName;
+	post -> source = inSource;
 	return true;
   }
   else return(title, text, name, source, post -> next_post);
