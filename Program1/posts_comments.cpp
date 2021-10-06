@@ -13,13 +13,36 @@
 
 using namespace std;
 
-feed::feed() {
+feed::feed() {//default constructor
   head = nullptr;
 }
 
-feed::~feed() {
-  delete head;
+feed::~feed() {//destructor
+  post_node * temp = nullptr;
+
+  while (head) {
+	temp = head -> next_post;
+	comment_node * temp_comment = nullptr;
+
+	if (temp) while (temp -> comment_head) {
+	  temp_comment = temp -> comment_head -> next_reply;
+	  delete temp -> comment_head;
+	  temp -> comment_head = temp_comment;
+	}
+
+	temp = head -> next_post;
+	delete head;
+	head = temp;
+	
+  }
+  
   head = nullptr;
+}
+
+post_node* locatePost(char * inTitle, post_node * post) {
+  if (!post) return nullptr;
+  if (strcmp(inTitle, post -> title) == 0) return post;
+  else return locatePost(inTitle, post -> next_post);
 }
 
 bool feed::create_post(char * inTitle, char * inText, char * inName, char * inSource) {
@@ -67,8 +90,16 @@ bool feed::display_all() {
   return true;
 }
 
-bool feed::like_post(char * title, post_node *& post) {
-  return false;
+int feed::like_post(char * title) {
+  if (!head) return 1;
+  
+  post_node * post = locatePost(title, head);
+  if (post) {
+	post -> likes += 1;
+	return 0;
+  }
+  
+  return 2;
 }
 
 int feed::display_by_likes(int likes, post_node *& post) {
@@ -85,15 +116,19 @@ bool feed::like_comment(char * title, post_node *& post) {
 
 int feed::display_comments(char * title) {
   if (!head) return 1;
+
+  /*
   post_node * temp_post = head;
   post_node * post = nullptr;
-
+  
   while (!post && temp_post) {
 	if (strcmp(temp_post -> title, title) == 0) post = temp_post;
 	temp_post = temp_post -> next_post;
   }
+  */
 
-
+  post_node * post = locatePost(title, head);
+  
   if (!post) return 2;
   if (!post -> comment_head) return 3;
   

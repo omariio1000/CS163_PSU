@@ -33,7 +33,7 @@ public:
   ~feed(); //destructor
   bool create_post(char * title, char * text, char * name, char * source); //wrapper for post creation function
   bool display_all(); //function to display all posts and comments
-  bool like_post(char * title, post_node *& post); //function to like post
+  int like_post(char * title); //function to like post
   int display_by_likes(int likes, post_node *& post); //function to only display posts with certain like counts and their comments
   bool create_comment(char * title, char * name, char * text, post_node *& post); //function to comment on post
   bool like_comment (char * title, post_node *& post); //function to like comment

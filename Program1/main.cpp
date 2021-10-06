@@ -90,7 +90,17 @@ int main() {
 	}
 
 	else if (answer == 3) {//Like post
+	  char * title = new char[1000];
+	  
+	  cout << endl << "What post do you want to like?" << endl;
+	  cin.get(title, 1000, '\n');
+	  cin.clear();
+	  cin.ignore(100, '\n');
 
+	  int liked = new_feed.like_post(parseInput(title));
+	  if (liked == 1) cout << endl << "Your feed is empty!" << endl;
+	  else if (liked == 2) cout << endl << "Could not find a post with that title." << endl;
+	  else cout << endl << "Liked post." << endl;
 	}
 
 	else if (answer == 4) {//Like comment
