@@ -31,8 +31,7 @@ class feed {//ADT class for social media feed
 public:
   feed(); //constructor
   ~feed(); //destructor
-  bool create_post(char * title, char * text, char * name, char * source); //wrapper for next line
-  bool create_post(char * title, char * text, char * name, char * source, post_node *& post); //function for post creation
+  bool create_post(char * title, char * text, char * name, char * source); //wrapper for post creation function
   bool display_all(); //function to display all posts and comments
   bool like_post(char * title, post_node *& post); //function to like post
   int display_by_likes(int likes, post_node *& post); //function to only display posts with certain like counts and their comments
@@ -43,5 +42,5 @@ public:
   
 private:
   post_node * head; //head pointer for first post
-  
+  bool create_post(char * title, char * text, char * name, char * source, post_node *& post); //function for post creation
 };
