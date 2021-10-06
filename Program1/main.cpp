@@ -106,7 +106,7 @@ int main() {
 	}
 
 	else if (answer == 7) {//Display comments on certain post
-
+	  
 	}
 
 	else if (answer == 8) {//Remove post
@@ -123,7 +123,9 @@ int main() {
 
 
 char* parseInput(char * in) {
+  //cout << endl << in << endl;
   char* parsed = new char[strlen(in) + 1];
-  strcpy(in, parsed);
+  strcpy(parsed, in);
+  //cout << endl << parsed << endl;
   return parsed;
 }
