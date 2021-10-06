@@ -29,7 +29,7 @@ bool feed::create_post(char * inTitle, char * inText, char * inName, char * inSo
 
 bool feed::create_post(char * inTitle, char * inText, char * inName, char * inSource, post_node *& post) {
   if (!post) {
-	cout << endl << "Post being created." << endl;
+	//cout << endl << "Post being created." << endl;
 	post = new post_node();
 	post -> title = inTitle;
 	post -> text = inText;
@@ -38,7 +38,7 @@ bool feed::create_post(char * inTitle, char * inText, char * inName, char * inSo
 	return true;
   }
   else {
-	cout << endl << "Calling recursively." << endl;
+	//cout << endl << "Calling recursively." << endl;
 	return create_post(inTitle, inText, inName, inSource, post -> next_post);	
   }
   return false;
@@ -83,8 +83,30 @@ bool feed::like_comment(char * title, post_node *& post) {
   return false;
 }
 
-bool feed::display_comments(char * title, post_node *& post) {
-  return false;
+int feed::display_comments(char * title) {
+  if (!head) return 1;
+  post_node * temp_post = head;
+  post_node * post = nullptr;
+
+  while (!post && temp_post) {
+	if (strcmp(temp_post -> title, title) == 0) post = temp_post;
+	temp_post = temp_post -> next_post;
+  }
+
+
+  if (!post) return 2;
+  if (!post -> comment_head) return 3;
+  
+  comment_node * temp_comment = post -> comment_head;
+  cout << endl << "Comments:" <<endl;
+  while (temp_comment) {
+	  cout << endl << temp_comment -> name << " says:" <<endl;
+	  cout << temp_comment -> text << endl;
+	  cout << temp_comment -> likes << " likes" << endl;
+	  temp_comment = temp_comment -> next_reply;
+  }
+  return 0;
+  
 }
 
 bool feed::remove_post(char * title, post_node *& post) {

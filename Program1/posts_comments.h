@@ -38,7 +38,7 @@ public:
   int display_by_likes(int likes, post_node *& post); //function to only display posts with certain like counts and their comments
   bool create_comment(char * title, char * name, char * text, post_node *& post); //function to comment on post
   bool like_comment (char * title, post_node *& post); //function to like comment
-  bool display_comments(char * title, post_node *& post); //function to display comments on certain post
+  int display_comments(char * title); //function to display comments on certain post
   bool remove_post(char * title, post_node *& post); //function to remove post and associated comments based on title
   
 private:

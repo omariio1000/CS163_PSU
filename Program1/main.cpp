@@ -22,8 +22,8 @@ int main() {
 
   while (running) {
 	int answer = 0;
-	cout << endl << "Would you like to:" << endl;
-	cout << "1) Create a post" << endl;
+	
+	cout << endl << "1) Create a post" << endl;
 	cout << "2) Make a comment" << endl;
 	cout << "3) Like a post" << endl;
 	cout << "4) Like a comment" << endl;
@@ -31,7 +31,8 @@ int main() {
 	cout << "6) Display posts with a certain like count" << endl;
 	cout << "7) Display all comments on a certain post" << endl;
 	cout << "8) Remove a post" << endl;
-	cout << "9) Quit" << endl << endl;
+	cout << "9) Quit" << endl;
+	cout << "What would you like to do? ";
 
 	cin >> answer;
 	cin.clear();
@@ -106,7 +107,17 @@ int main() {
 	}
 
 	else if (answer == 7) {//Display comments on certain post
+	  char * title = new char[1000];
 	  
+	  cout << endl << "What post would you like to view the comments of?" << endl;
+	  cin.get(title, 1000, '\n');
+	  cin.clear();
+	  cin.ignore(100, '\n');
+
+	  int displayed = new_feed.display_comments(parseInput(title));
+	  if (displayed == 1) cout << endl << "Your feed is empty!" << endl;
+	  if (displayed == 2) cout << endl << "Could not find a post with that title." << endl;
+	  else if (displayed == 3) cout << endl << "There are no comments on this post." << endl;
 	}
 
 	else if (answer == 8) {//Remove post
