@@ -12,7 +12,7 @@
 struct comment_node {
   char * name; //name of comment poster
   char * text; //contents of comment
-  int likes; //comment like count
+  int likes = 0; //comment like count
   comment_node * next_reply; //reply to comment
 };
 
@@ -21,7 +21,7 @@ struct post_node {
   char * text; //contents of post
   char * name; //name of poster
   char * source; //original poster (if reposted)
-  int likes; //like count
+  int likes = 0; //like count
   comment_node * comment_head; //first comment under post
   post_node * next_post; //next post in feed
 };

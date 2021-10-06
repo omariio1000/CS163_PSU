@@ -15,9 +15,12 @@ int main()
 	counter = remove_last_refined(head);
 	cout << "Now the counter will be one less: " << counter;
 	*/
+	
+	//int counter = remove_largest(head);
+	//cout << "We removed " << counter << " nodes" << endl;
 
-	int counter = remove_largest(head);
-	cout << "We removed " << counter << " nodes" << endl;
+	int count_match = append_end(head);
+	cout << "We found " << count_match << " number of matches to the first." << endl;
 	
     display(head); //redisplay the list after your function
     destroy(head); 
