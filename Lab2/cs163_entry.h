@@ -2,7 +2,10 @@
 #include <cctype>
 #include <iostream>
 
-
+/*Omar Nassar
+ *Portland State University CS163
+ *October 7, 2021
+ */
 //This journal supports a title and notes
 //In the real world this would contain a date, 
 //author, type of journal entry, and much more!

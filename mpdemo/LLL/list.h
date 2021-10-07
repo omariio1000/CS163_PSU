@@ -18,9 +18,13 @@ void destroy(node * &head); //supplied
 /* *****************YOUR TURN! ******************************** */
 //Write your function prototype here:
 
+float average_calc(node * head);
+int counts_and_sums(node * head, int & sum);
+/*
 int remove_last_recursive(node * & head);
 int remove_last_refined(node * & head);
 int remove_largest(node * & head);
 int remove_largest(node * & head, int & largest);
 int append_end(node * & head);
 int append_end(node * & head, int data);
+*/

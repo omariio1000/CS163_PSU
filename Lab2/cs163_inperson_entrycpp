@@ -1,0 +1,43 @@
+#include <cstring>
+#include <cctype>
+#include <iostream>
+
+#include "cs163_entry.h"
+
+using namespace std;
+
+
+journal_entry::journal_entry(void) {
+  title = note = nullptr;
+}
+
+journal_entry::~journal_entry(void) {
+  if (title) delete [] title;
+  if (notes) delete [] notes;
+  title = note = nullptr;
+}
+
+int journal_entry::create_entry(char * inTitle, char * inNotes) {
+
+  if (!inTitle || !inNotes) return 0; //nothing is coming in
+  if (title || notes) return 0; //failure, already had data
+  //OR
+  if (title) delete [] title; //get rid of it so we don't leak data
+  if (notes) delete [] notes; //get rid fo it so we don't leak data
+  
+  title = new char[strlen(inTitle) + 1];
+  strcpy(title, inTitle);
+
+  notes = new char[strlen(inNotes) + 1];
+  strcpy(notes, inNotes);
+
+  return 1;
+}
+
+int journal_entry::display(void) {
+  if (!title || !notes) return 0;
+
+  cout << title << '\t' << notes << endl;
+
+  return 1;
+}
