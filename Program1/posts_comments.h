@@ -34,14 +34,14 @@ public:
   bool create_post(char * title, char * text, char * name, char * source); //wrapper for post creation function
   bool display_all(); //function to display all posts and comments
   int like_post(char * title); //function to like post
-  int display_by_likes(int likes, post_node *& post); //function to only display posts with certain like counts and their comments
+  int display_by_likes(int likes); //function to only display posts with certain like counts and their comments
   int create_comment(char * title, char * name, char * text); //wrapper for commenting
-  bool like_comment (char * title, post_node *& post); //function to like comment
+  int like_comment (char * titile, char * name); //function to like comment
   int display_comments(char * title); //function to display comments on certain post
-  bool remove_post(char * title, post_node *& post); //function to remove post and associated comments based on title
+  int remove_post(char * title); //function to remove post and associated comments based on title
   
 private:
   post_node * head; //head pointer for first post
   bool create_post(char * title, char * text, char * name, char * source, post_node *& post); //function for post creation
-  int create_comment(char * title, char * name, char * text, comment_node *& comment); //function to comment on post
+  int create_comment(comment_node * inComment, comment_node *& comment); //function to comment on post
 };

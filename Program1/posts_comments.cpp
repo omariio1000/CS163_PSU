@@ -45,6 +45,12 @@ post_node* locatePost(char * inTitle, post_node * post) {
   else return locatePost(inTitle, post -> next_post);
 }
 
+comment_node* locateComment(char * inName, comment_node * comment) {
+  if (!comment) return nullptr;
+  if (strcmp(inName, comment -> name) == 0) return comment;
+  else return locateComment(inName, comment -> next_reply);
+}
+
 bool feed::create_post(char * inTitle, char * inText, char * inName, char * inSource) {
   //cout << endl << inTitle << endl << inText << endl << inName << endl << inSource << endl;
   return create_post(inTitle, inText, inName, inSource, head);
@@ -102,20 +108,69 @@ int feed::like_post(char * title) {
   return 2;
 }
 
-int feed::display_by_likes(int likes, post_node *& post) {
-  return likes;
+int feed::display_by_likes(int inLikes) {
+  if (!head) return 1;
+  
+  int foundAny = 2;
+  
+  post_node * temp_post = head;
+  while (temp_post) {
+	if (temp_post -> likes >= inLikes) {
+	  foundAny = 0;
+	  comment_node * temp_comment = temp_post -> comment_head;
+	  cout << endl << temp_post -> title << endl;
+	  cout << "Posted by " << temp_post -> name << endl;
+	  if (temp_post -> source) cout << "Reposted from " << temp_post -> source << endl;
+	  cout << endl << temp_post -> text << endl;
+	  cout << temp_post -> likes << " likes" << endl;
+	  
+	  if (temp_comment) cout << endl << "Comments:" << endl;
+	  while (temp_comment) {
+		cout << endl << temp_comment -> name << " says:" <<endl;
+		cout << temp_comment -> text << endl;
+		cout << temp_comment -> likes << " likes" << endl;
+		temp_comment = temp_comment -> next_reply;
+	  }
+	}
+	temp_post = temp_post -> next_post;
+  }
+  
+  return foundAny;
 }
 
 int feed::create_comment(char * inTitle, char * inName, char * inText) {
-  return 0;
+  if (!head) return 1;
+  if (!inTitle || !inName || !inText) return 2;
+  post_node * post = locatePost(inTitle, head);
+  if (!post) return 3;
+  
+  comment_node * comment = new comment_node;
+  comment -> name = inName;
+  comment -> text = inText;
+
+  return create_comment(comment, post -> comment_head);
+  
 }
 
-int feed::create_comment(char * inTitle, char * inName, char * inText, comment_node *& comment) {
-  return 0;
+int feed::create_comment(comment_node * inComment, comment_node *& comment) {
+  if (!comment) {
+	comment = inComment;
+	return 0;
+  }
+  return create_comment(inComment, comment -> next_reply);
 }
 
-bool feed::like_comment(char * title, post_node *& post) {
-  return false;
+int feed::like_comment(char * title, char * name) {
+  if (!head) return 1;
+
+  post_node * post = locatePost(title, head);
+  if (!post) return 2;
+
+  comment_node * comment = locateComment(name, post -> comment_head);
+  if (!comment) return 3;
+
+  comment -> likes += 1;
+  return 0;
 }
 
 int feed::display_comments(char * title) {
@@ -134,6 +189,13 @@ int feed::display_comments(char * title) {
   post_node * post = locatePost(title, head);
   
   if (!post) return 2;
+
+  cout << endl << post -> title << endl;
+  cout << "Posted by " << post -> name << endl;
+  if (post -> source) cout << "Reposted from " << post -> source << endl;
+  cout << endl << post -> text << endl;
+  cout << post -> likes << " likes" << endl;
+
   if (!post -> comment_head) return 3;
   
   comment_node * temp_comment = post -> comment_head;
@@ -148,6 +210,6 @@ int feed::display_comments(char * title) {
   
 }
 
-bool feed::remove_post(char * title, post_node *& post) {
-  return false;
+int feed::remove_post(char * title) {
+  return 0; 
 }
