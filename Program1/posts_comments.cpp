@@ -106,8 +106,12 @@ int feed::display_by_likes(int likes, post_node *& post) {
   return likes;
 }
 
-bool feed::create_comment(char * title, char * name, char * text, post_node *& post) {
-  return false;
+int feed::create_comment(char * inTitle, char * inName, char * inText) {
+  return 0;
+}
+
+int feed::create_comment(char * inTitle, char * inName, char * inText, comment_node *& comment) {
+  return 0;
 }
 
 bool feed::like_comment(char * title, post_node *& post) {

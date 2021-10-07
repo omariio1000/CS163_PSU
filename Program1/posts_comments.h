@@ -35,7 +35,7 @@ public:
   bool display_all(); //function to display all posts and comments
   int like_post(char * title); //function to like post
   int display_by_likes(int likes, post_node *& post); //function to only display posts with certain like counts and their comments
-  bool create_comment(char * title, char * name, char * text, post_node *& post); //function to comment on post
+  int create_comment(char * title, char * name, char * text); //wrapper for commenting
   bool like_comment (char * title, post_node *& post); //function to like comment
   int display_comments(char * title); //function to display comments on certain post
   bool remove_post(char * title, post_node *& post); //function to remove post and associated comments based on title
@@ -43,4 +43,5 @@ public:
 private:
   post_node * head; //head pointer for first post
   bool create_post(char * title, char * text, char * name, char * source, post_node *& post); //function for post creation
+  int create_comment(char * title, char * name, char * text, comment_node *& comment); //function to comment on post
 };
