@@ -193,7 +193,7 @@ int main() {
   return 0;
 }
 
-
+//function to reduce char array sizes and save memory in ADT
 char* parseInput(char * in) {
   //cout << endl << in << endl;
   char* parsed = new char[strlen(in) + 1];
@@ -202,6 +202,7 @@ char* parseInput(char * in) {
   return parsed;
 }
 
+//function to process error codes given by implementation
 void returnError(int in) {
   if (in == 0) cout << endl << "Post created successfully!" << endl;
   if (in == 1) cout << endl << "Comment created successfully!" <<endl;
