@@ -31,17 +31,30 @@ class feed {//ADT class for social media feed
 public:
   feed(); //constructor
   ~feed(); //destructor
-  bool create_post(char * title, char * text, char * name, char * source); //wrapper for post creation function
-  bool display_all(); //function to display all posts and comments
-  int like_post(char * title); //function to like post
-  int display_by_likes(int likes); //function to only display posts with certain like counts and their comments
-  int create_comment(char * title, char * name, char * text); //wrapper for commenting
-  int like_comment (char * titile, char * name); //function to like comment
-  int display_comments(char * title); //function to display comments on certain post
-  int remove_post(char * title); //function to remove post and associated comments based on title
+
+  //wrapper for post creation function
+  int create_post(char * title, char * text, char * name, char * source);
+  //function for displaying entire feed
+  int display_all();
+  //function to like post
+  int like_post(char * title);
+  //function to display based on like count
+  int display_by_likes(int likes);
+  //wrapper for commenting
+  int create_comment(char * title, char * name, char * text);
+  //funciton to like comment
+  int like_comment (char * titile, char * name);
+  //function to display comments on one post
+  int display_comments(char * title);
+  //wrapper function for removing post
+  int remove_post(char * title); 
   
 private:
-  post_node * head; //head pointer for first post
-  bool create_post(char * title, char * text, char * name, char * source, post_node *& post); //function for post creation
-  int create_comment(comment_node * inComment, comment_node *& comment); //function to comment on post
+  post_node * head = nullptr; //head pointer for first post
+  //recursive function for post creation
+  int create_post(post_node * inPost, post_node *& post);
+  //recursive function for commenting
+  int create_comment(comment_node * inComment, comment_node *& comment);
+  //recursive function to remove posts
+  int remove_post(post_node *& deleting, post_node *& post);
 };

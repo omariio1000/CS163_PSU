@@ -51,30 +51,27 @@ comment_node* locateComment(char * inName, comment_node * comment) {
   else return locateComment(inName, comment -> next_reply);
 }
 
-bool feed::create_post(char * inTitle, char * inText, char * inName, char * inSource) {
-  //cout << endl << inTitle << endl << inText << endl << inName << endl << inSource << endl;
-  return create_post(inTitle, inText, inName, inSource, head);
+int feed::create_post(char * inTitle, char * inText, char * inName, char * inSource) {
+  if (!inTitle || !inText || !inName) return 7;
+
+  post_node * new_post = new post_node;
+  new_post -> title = inTitle;
+  new_post -> text = inText;
+  new_post -> name = inName;
+  new_post -> source = inSource;
+  return create_post(new_post, head);
 }
 
-bool feed::create_post(char * inTitle, char * inText, char * inName, char * inSource, post_node *& post) {
+int feed::create_post(post_node * inPost, post_node *& post) {
   if (!post) {
-	//cout << endl << "Post being created." << endl;
-	post = new post_node();
-	post -> title = inTitle;
-	post -> text = inText;
-	post -> name = inName;
-	post -> source = inSource;
-	return true;
+	post = inPost;
+	return 0;
   }
-  else {
-	//cout << endl << "Calling recursively." << endl;
-	return create_post(inTitle, inText, inName, inSource, post -> next_post);	
-  }
-  return false;
+  return create_post(inPost, post -> next_post);
 }
 
-bool feed::display_all() {  
-  if (!head) return false;
+int feed::display_all() {  
+  if (!head) return 3;
   post_node * temp_post = head;
   while (temp_post) {
 	comment_node * temp_comment = temp_post -> comment_head;
@@ -93,30 +90,30 @@ bool feed::display_all() {
 	}
 	temp_post = temp_post -> next_post;
   }
-  return true;
+  return -1;
 }
 
 int feed::like_post(char * title) {
-  if (!head) return 1;
+  if (!head) return 3;
   
   post_node * post = locatePost(title, head);
   if (post) {
 	post -> likes += 1;
-	return 0;
+	return 8;
   }
   
-  return 2;
+  return 4;
 }
 
 int feed::display_by_likes(int inLikes) {
-  if (!head) return 1;
+  if (!head) return 3;
   
-  int foundAny = 2;
+  int foundAny = 6;
   
   post_node * temp_post = head;
   while (temp_post) {
 	if (temp_post -> likes >= inLikes) {
-	  foundAny = 0;
+	  foundAny = -1;
 	  comment_node * temp_comment = temp_post -> comment_head;
 	  cout << endl << temp_post -> title << endl;
 	  cout << "Posted by " << temp_post -> name << endl;
@@ -139,8 +136,8 @@ int feed::display_by_likes(int inLikes) {
 }
 
 int feed::create_comment(char * inTitle, char * inName, char * inText) {
-  if (!head) return 1;
-  if (!inTitle || !inName || !inText) return 2;
+  if (!head) return 3;
+  if (!inTitle || !inName || !inText) return 7;
   post_node * post = locatePost(inTitle, head);
   if (!post) return 3;
   
@@ -155,40 +152,30 @@ int feed::create_comment(char * inTitle, char * inName, char * inText) {
 int feed::create_comment(comment_node * inComment, comment_node *& comment) {
   if (!comment) {
 	comment = inComment;
-	return 0;
+	return 1;
   }
   return create_comment(inComment, comment -> next_reply);
 }
 
 int feed::like_comment(char * title, char * name) {
-  if (!head) return 1;
+  if (!head) return 3;
 
   post_node * post = locatePost(title, head);
-  if (!post) return 2;
+  if (!post) return 4;
 
   comment_node * comment = locateComment(name, post -> comment_head);
-  if (!comment) return 3;
+  if (!comment) return 5;
 
   comment -> likes += 1;
-  return 0;
+  return 9;
 }
 
 int feed::display_comments(char * title) {
-  if (!head) return 1;
-
-  /*
-  post_node * temp_post = head;
-  post_node * post = nullptr;
-  
-  while (!post && temp_post) {
-	if (strcmp(temp_post -> title, title) == 0) post = temp_post;
-	temp_post = temp_post -> next_post;
-  }
-  */
+  if (!head) return 3;
 
   post_node * post = locatePost(title, head);
   
-  if (!post) return 2;
+  if (!post) return 4;
 
   cout << endl << post -> title << endl;
   cout << "Posted by " << post -> name << endl;
@@ -196,7 +183,7 @@ int feed::display_comments(char * title) {
   cout << endl << post -> text << endl;
   cout << post -> likes << " likes" << endl;
 
-  if (!post -> comment_head) return 3;
+  if (!post -> comment_head) return 11;
   
   comment_node * temp_comment = post -> comment_head;
   cout << endl << "Comments:" <<endl;
@@ -206,10 +193,31 @@ int feed::display_comments(char * title) {
 	  cout << temp_comment -> likes << " likes" << endl;
 	  temp_comment = temp_comment -> next_reply;
   }
-  return 0;
+  return -1;
   
 }
 
 int feed::remove_post(char * title) {
-  return 0; 
+  if (!head) return 3;
+  post_node * deleting = locatePost(title, head);
+  if (!deleting) return 4;
+
+  if (deleting ==  head) {
+	delete head;
+	head = nullptr;
+	return 2;
+  }
+
+  else return remove_post(deleting, head);
+}
+
+int feed::remove_post(post_node *& deleting, post_node *& current) {
+  if (!current) return 10;
+  if (current -> next_post == deleting) {
+	current -> next_post = deleting -> next_post;
+	delete deleting;
+	deleting = nullptr;
+	return 2;
+  }
+  return remove_post(deleting, head -> next_post);
 }

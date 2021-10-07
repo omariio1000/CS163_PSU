@@ -14,6 +14,7 @@
 using namespace std;
 
 char* parseInput(char * in);
+void returnError(int in);
 
 int main() {
   feed new_feed;
@@ -67,21 +68,17 @@ int main() {
 	  cin >> reposted;
 	  cin.clear();
 	  cin.ignore(100, '\n');
-
-	  bool posted;
 	  
-	  if (!reposted) posted = new_feed.create_post(title, text, name, nullptr);
+	  if (!reposted) returnError(new_feed.create_post(title, text, name, nullptr));
 	  else {
 		cout << endl << "What is the name of the orignal poster? ";
 		cin.get(source, 1000, '\n');
 		cin.clear();
 		cin.ignore(100, '\n');
 		source = parseInput(source);
-		posted = new_feed.create_post(title, text, name, source);
+		returnError(new_feed.create_post(title, text, name, source));
 	  }
 
-	  if (posted) cout << endl << "The post was created successfully!" << endl;
-	  else cout << endl << "Failed to post." << endl;
 	  
 	}
 	
@@ -108,12 +105,8 @@ int main() {
 	  cin.ignore(100, '\n');
 	  text = parseInput(text);
 
-	  int result = new_feed.create_comment(title, name, text);
-
-	  if (result == 0) cout << endl << "Comment created successfully!" << endl;
-	  else if (result == 1) cout << endl << "Your feed is empty!" << endl;
-	  else if (result == 2) cout << endl << "Invalid Input." << endl;
-	  else if (result == 3) cout << endl << "No post was found with that title." << endl;
+	  returnError(new_feed.create_comment(title, name, text));
+	  
 	}
 
 	else if (answer == 3) {//Like post
@@ -124,10 +117,7 @@ int main() {
 	  cin.clear();
 	  cin.ignore(100, '\n');
 
-	  int liked = new_feed.like_post(parseInput(title));
-	  if (liked == 1) cout << endl << "Your feed is empty!" << endl;
-	  else if (liked == 2) cout << endl << "Could not find a post with that title." << endl;
-	  else cout << endl << "Liked post." << endl;
+	  returnError(new_feed.like_post(parseInput(title)));
 	}
 
 	else if (answer == 4) {//Like comment
@@ -146,17 +136,11 @@ int main() {
 	  cin.ignore(100, '\n');
 	  name = parseInput(name);
 
-	  int result = new_feed.like_comment(title, name);
-	  if (result == 0) cout << endl << "Liked comment." << endl;
-	  else if (result == 1) cout << endl << "Your feed is empty!" << endl;
-	  else if (result == 2) cout << endl << "Could not find a post with that title." << endl;
-	  else if (result == 3) cout << endl << "Could not find a comment by " << name << " on this post." << endl;
-	  
+	  returnError(new_feed.like_comment(title, name));  
 	}
 
 	else if (answer == 5) {//Display feed
-	  bool displayed = new_feed.display_all();
-	  if (!displayed) cout << endl << "Your feed is empty!" << endl;
+	  returnError(new_feed.display_all());
 	}
 
 	else if (answer == 6) {//Display posts with certain like count
@@ -165,9 +149,7 @@ int main() {
 	  cin >> likes;
 	  cin.clear();
 	  cin.ignore(100, '\n');
-	  int result = new_feed.display_by_likes(likes);
-	  if (result == 1) cout << endl << "Your feed is empty!" << endl;
-	  if (result == 2) cout << endl << "Could not find any posts that meet the required like count." << endl;
+	  returnError(new_feed.display_by_likes(likes));
 	}
 
 	else if (answer == 7) {//Display comments on certain post
@@ -178,10 +160,7 @@ int main() {
 	  cin.clear();
 	  cin.ignore(100, '\n');
 
-	  int displayed = new_feed.display_comments(parseInput(title));
-	  if (displayed == 1) cout << endl << "Your feed is empty!" << endl;
-	  if (displayed == 2) cout << endl << "Could not find a post with that title." << endl;
-	  else if (displayed == 3) cout << endl << "There are no comments on this post." << endl;
+	  returnError(new_feed.display_comments(parseInput(title)));
 	}
 
 	else if (answer == 8) {//Remove post
@@ -193,16 +172,16 @@ int main() {
 	  cin.clear();
 	  cin.ignore(100, '\n');
 
+	  
 	  int results = new_feed.display_comments(title);
-	  if (results == 1) cout << endl << "Your feed is empty!" << endl;
-	  else if (results == 2) cout << endl << "Could not find a post with that title." << endl;
-	  else {
+	  returnError(results);
+	  
+	  if (results == -1 || 11) {
 		cout << endl << "Are you sure you would like to delete this post? (1 for yes, 0 for no) ";
 		cin >> confirm;
 		cin.clear();
 		cin.ignore(100, '\n');
-		results = new_feed.remove_post(title);
-		if (results == 0) cout << endl << "Post was deleted successfully." << endl;
+		returnError(new_feed.remove_post(title));
 	  }
 	}
 	
@@ -221,4 +200,19 @@ char* parseInput(char * in) {
   strcpy(parsed, in);
   //cout << endl << parsed << endl;
   return parsed;
+}
+
+void returnError(int in) {
+  if (in == 0) cout << endl << "Post created successfully!" << endl;
+  if (in == 1) cout << endl << "Comment created successfully!" <<endl;
+  if (in == 2) cout << endl << "Post deleted successfully." << endl;
+  if (in == 3) cout << endl << "Your feed is empty!" << endl;
+  if (in == 4) cout << endl << "No post found with that title." << endl;
+  if (in == 5) cout << endl << "No comment found by given person." << endl;
+  if (in == 6) cout << endl << "No posts found with given like count" << endl;
+  if (in == 7) cout << endl << "Invalid Input." << endl;
+  if (in == 8) cout << endl << "Liked post!" << endl;
+  if (in == 9) cout << endl << "Liked comment!" << endl;
+  if (in == 10) cout << endl << "Unknown Error." << endl;
+  if (in == 11) cout << endl << "There are no comments on this post." << endl;
 }
