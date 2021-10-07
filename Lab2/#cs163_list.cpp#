@@ -56,7 +56,6 @@ int list::find(char matching_title[], journal_entry & found)
 	  found.copy_entry(current -> entry);
 	  return 1;
 	}
-	else head = head -> next;
   }
   return 0;
 }
@@ -70,12 +69,9 @@ int list::append(list & source)
   //Your code goes here!
   
   node * current = source.head;
-  cout << "appending: ";
-  current -> entry.display();
-  cout << endl;
-  while (current) {
+  while (current != source.tail) {
 	add(current -> entry);
-	current = current -> next;
+	current = curren t-> next
   }
   return 0;
   

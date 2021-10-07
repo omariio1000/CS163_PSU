@@ -8,7 +8,9 @@ int main()
     
     char title[SIZE], notes[SIZE];      //temporary for journals
     journal_entry entry;                //Start creating entries!
+	//journal_entry entry2;
     list my_journal;
+	list journal_2;
     
 
     //Main has already been written for you to test out
@@ -22,7 +24,7 @@ int main()
     //Let's create some journal entries
     do
     {
-       cout <<"Please enter the title of your journal entry\n";
+	  cout <<"Please enter the title of your journal entry\n";
        cin.get(title, SIZE, '\n'); cin.ignore(SIZE,'\n');
        cout <<"Please enter your notes\n";
        cin.get(notes, SIZE, '\n'); cin.ignore(SIZE,'\n');
@@ -42,8 +44,8 @@ int main()
 
      //The following code demonstrates how to call the find function.
      //You may use this code or modify it to fully test your lab code!
-/*
 
+	 
      //Is there an entry we would like to find (by title)?
      cout <<"Enter a title which you would like to find in your journal: ";
      cin.get(title, SIZE, '\n'); cin.ignore(SIZE,'\n');
@@ -54,7 +56,29 @@ int main()
             cerr << "Sorry, can't display it at this time\n";
      }
      else  cout <<"\n\nNo match found.\n";
-*/
+	 
+	 /*
+	  do
+    {
+       cout <<"Please enter the title of your journal entry\n";
+       cin.get(title, SIZE, '\n'); cin.ignore(SIZE,'\n');
+       cout <<"Please enter your notes\n";
+       cin.get(notes, SIZE, '\n'); cin.ignore(SIZE,'\n');
+       
+       //Now create the journal entry
+       if (entry.create_entry(title, notes)) 
+           //if this was successful, let's add it to the list!
+          if (! journal_2.add(entry))
+              cerr << "We were unable to add it to the list...\n";
+     } while (again());
+	  my_journal.append(journal_2);
+	 
+
+	 cout <<"\n\nThe entire list contains the following:\n";
+     if (!my_journal.display())
+	   cerr << "The list is empty...try again\n";
+
+	 */	 
      return 0;
      
 }

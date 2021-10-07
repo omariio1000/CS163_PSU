@@ -17,7 +17,7 @@ public:
   ~list(void);
   
   //Implement these three functions
-  int add(journal_entry & to_add);
+  int add(journal_entry & to_add);
   int find(char matching_title[], journal_entry & found);
   int display(void);
   
