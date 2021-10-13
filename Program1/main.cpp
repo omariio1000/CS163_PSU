@@ -182,7 +182,7 @@ int main() {
             int results = new_feed.display_comments(title);
             returnError(results);
 
-            if (results == -1 || 11) {
+            if (results == -1 || results == 11) {
                 cout << endl << "Are you sure you would like to delete this post? (1 for yes, 0 for no) ";
                 cin >> confirm;
                 cin.clear();
