@@ -142,6 +142,9 @@ int feed::display_by_likes(int inLikes) {
             }
         }
         temp_post = temp_post -> next_post;
+
+        cout << endl << "------------------------------" << endl;
+
     }
 
     return foundAny;
