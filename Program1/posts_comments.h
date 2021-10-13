@@ -9,6 +9,7 @@
 #include <iostream>
 #include <cstdlib>
 
+//struct for comments
 struct comment_node {
     char * name; //name of comment poster
     char * text; //contents of comment
@@ -16,6 +17,7 @@ struct comment_node {
     comment_node * next_reply; //reply to comment
 };
 
+//struct for posts
 struct post_node {
     char * title; //title of post
     char * text; //contents of post
@@ -50,7 +52,8 @@ class feed {//ADT class for social media feed
         int remove_post(char * title); 
 
     private:
-        post_node * head = nullptr; //head pointer for first post
+        //head pointer for first post
+        post_node * head = nullptr; 
         //recursive function for post creation
         int create_post(post_node * inPost, post_node *& post);
         //recursive function for commenting

@@ -20,6 +20,7 @@ char* parseInput(char * in);
 void returnError(int in);
 
 int main() {
+    //creating a new feed instance
     feed new_feed;
 
     bool running = true;
@@ -73,6 +74,8 @@ int main() {
             cin.ignore(100, '\n');
 
             if (!reposted) returnError(new_feed.create_post(title, text, name, nullptr));
+
+            //if the post is a repost, prompt for original poster
             else {
                 cout << endl << "What is the name of the orignal poster? ";
                 cin.get(source, 1000, '\n');
@@ -142,9 +145,9 @@ int main() {
             returnError(new_feed.like_comment(title, name));  
         }
 
-        else if (answer == 5) {//Display feed
+        else if (answer == 5) //Display feed
             returnError(new_feed.display_all());
-        }
+
 
         else if (answer == 6) {//Display posts with certain like count
             int likes;
