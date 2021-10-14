@@ -9,8 +9,8 @@
 //point to one item or the first of many items
 struct node
 {
-       journal_entry * entries; //a dynamically allocated array of journal entries
-       node * next;
+    journal_entry * entries; //a dynamically allocated array of journal entries
+    node * next;
 };
 
 //Now let's create a stack. Stacks should be able to keep a collection of
@@ -22,27 +22,27 @@ const int MAX = 5;
 
 class stack
 {
-      public:
-             //These functions have ALREADY been written for you
-             stack(void);     
-             ~stack(void);     
-             int display_all(void) const; 
-            
- 
-             //Peek: You need to get back through the argument list the
-             //journal on the top of the stack but don't change the stack
-             int peek(/*FILL THIS IN */) const; //MODIFY THIS PROTOTYPE BEFORE YOU BEGIN!
+    public:
+        //These functions have ALREADY been written for you
+        stack(void);     
+        ~stack(void);     
+        int display_all(void) const; 
 
-             int push(/*FILL THIS IN*/);  //MODIFY THIS PROTOTYPE BEFORE YOU BEGIN!
-                                         //to push the argument onto the stack
-             int pop (void); 
 
-  
-      private:
-              node * head;
-              int top_index;   //The index for the next place to push
-			       //It is set to zero by the constructor
-			       //When it is MAX, the array is full
-              
+        //Peek: You need to get back through the argument list the
+        //journal on the top of the stack but don't change the stack
+        int peek(journal_entry & found_at_top) const; //MODIFY THIS PROTOTYPE BEFORE YOU BEGIN!
+
+        int push(const journal_entry & to_add); 
+        
+        //to push the argument onto the stack
+        int pop (void); 
+
+
+    private:
+        node * head;
+        int top_index;   //The index for the next place to push
+        //It is set to zero by the constructor
+        //When it is MAX, the array is full
 };
-             
+
