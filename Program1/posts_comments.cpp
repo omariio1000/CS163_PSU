@@ -75,6 +75,33 @@ int feed::create_post(post_node * inPost, post_node *& post) {
         post = inPost;
         return 0;
     }
+
+    int length = strlen(inPost -> title);
+    bool inLarger = false; 
+
+    //sorting in alphabetical order
+    for (int i = 0; i < length + 1; i++) {
+        //if they're identical to this point but one is longer, the the shortest is first
+        if (i == length + 1) inLarger = true;
+        else if (!post -> title[i]) i = length;
+        //if the one coming in should be first
+        else if (tolower(inPost -> title[i]) < tolower(post -> title[i])) {
+            inLarger = true;
+            i = length;
+        }
+        //if the one coming in should be after this one
+        else if (tolower(inPost -> title[i]) > tolower(post -> title[i]))
+                i = length;
+    }
+    
+    //if the post comes next in alphabetical order
+    if (inLarger) {
+        post_node * temp = post;
+        post = inPost;
+        inPost -> next_post = temp;
+        return 0;
+    }
+
     return create_post(inPost, post -> next_post);
 }
 
@@ -105,7 +132,7 @@ int feed::display_all() {
     return -1; //successfully displayed entire list
 }
 
-//funciton to like post
+//function to like post
 int feed::like_post(char * title) {
     if (!head) return 3; //if feed is empty
 
@@ -224,12 +251,13 @@ int feed::display_comments(char * title) {
 int feed::remove_post(char * title) {
     if (!head) return 3; //empty feed, nothing to delete
     post_node * deleting = locatePost(title, head);
-    if (!deleting) return 4; //no post found
+    if (!deleting) return 4; //no post found    
 
-    //if there's only one post, no need to call recursive
+    //if deleting head no need for recursive
     if (deleting == head) {
+        post_node * temp = head -> next_post;
         delete head;
-        head = nullptr;
+        head = temp;
         return 2; //deleted successfully
     }
 
@@ -248,5 +276,5 @@ int feed::remove_post(post_node *& deleting, post_node *& current) {
         deleting = nullptr;
         return 2; //deleted successfully
     }
-    return remove_post(deleting, head -> next_post);
+    return remove_post(deleting, current -> next_post);
 }
