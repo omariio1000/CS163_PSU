@@ -4,6 +4,9 @@
  *ADT to store different message board stacks (Queue using CLL)
  */
 
+#ifndef queue_h
+#define queue_h
+
 #include "stack.h"
 
 #include <cstring>
@@ -27,3 +30,5 @@ class queue {
     private:
         queue_node * head;
 };
+
+#endif

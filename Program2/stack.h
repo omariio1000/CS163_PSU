@@ -4,6 +4,9 @@
  *ADT for messages (Stack using LLL)
  */
 
+#ifndef stack_h
+#define stack_h
+
 #include <cstring>
 #include <cctype>
 #include <iostream>
@@ -28,3 +31,5 @@ class stack {
     private:
         stack_node * head;
 };
+
+#endif

@@ -9,6 +9,7 @@
 #include <iostream>
 #include <cstdlib>
 
+#include "stack.h"
 #include "queue.h"
 
 using namespace std;
