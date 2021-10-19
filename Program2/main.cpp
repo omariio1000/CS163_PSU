@@ -15,6 +15,11 @@
 using namespace std;
 
 int main() {
+    queue new_queue;
+    bool running_q = true;
+    bool running_s = true;    
 
+    while (running_q) {
+    }
     return 0;
 }

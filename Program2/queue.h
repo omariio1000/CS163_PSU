@@ -25,11 +25,12 @@ class queue {
         queue();
         ~queue();
 
-        int enqueue(stack & inMessages);
+        int enqueue(stack *& inMessages, char * inserver);
         int dequeue();
         int display_all();
     private:
-        queue_node * q_head;
+        queue_node * rear;
+        int display_all(queue_node * current);
 };
 
 #endif

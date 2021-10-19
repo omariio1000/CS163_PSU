@@ -14,27 +14,61 @@
 using namespace std;
 
 queue::queue() { 
-    q_head = nullptr;
+    rear = nullptr;
 }
 
 queue::~queue() {
   queue_node * temp;
-  do {
-      temp = q_head -> next;
-      delete q_head;
-      q_head = temp;
-  } while (q_head);
-  
+  while (rear -> next) {
+      temp = rear -> next;
+      delete rear;
+      rear = temp;
+  }
+  delete rear;
+  rear = nullptr;
 }
 
-int queue::enqueue(stack & inMessages) {
-    return 0;
+int queue::enqueue(stack *& inMessages, char * inServer) {
+    if (!inMessages || !inServer) return 0;
+    if (!rear) {
+        rear = new queue_node;
+        rear -> messages = inMessages;
+        rear -> server = inServer;
+        rear -> next = rear;
+        return 1;
+    }
+
+    queue_node * temp = new queue_node;
+    temp -> messages = inMessages;
+    temp -> server = inServer;
+    temp -> next = rear -> next;
+    rear -> next = temp;
+    rear = temp;
+    return 1;
 }
 
 int queue::dequeue() {
-    return 0;
+    if (!rear) return 0;
+    if (rear == rear -> next) {
+        delete rear;
+        rear = nullptr;
+        return 1;
+    }
+    queue_node * temp = rear -> next;
+    rear -> next = rear -> next -> next;
+    delete temp;
+    temp = nullptr;
+    return 1;
 }
 
-int display_all() {
-    return 0;
+int queue::display_all() {
+    if (!rear) return 0;
+    return display_all(rear -> next);
+}
+
+int queue::display_all(queue_node * current) {
+    cout << endl << "Server Name: " << current -> server << endl;
+    current -> messages -> display_all();
+    if (current != rear) return display_all(current -> next);
+    return 1;
 }
