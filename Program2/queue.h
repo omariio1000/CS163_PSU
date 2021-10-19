@@ -15,7 +15,8 @@
 #include <cstdlib>
 
 struct queue_node {
-    stack messages;
+    stack * messages;
+    char * server;
     queue_node * next;
 };
 
@@ -29,7 +30,6 @@ class queue {
         int display_all();
     private:
         queue_node * q_head;
-        char * server;
 };
 
 #endif

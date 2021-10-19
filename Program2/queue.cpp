@@ -13,12 +13,18 @@
 
 using namespace std;
 
-queue::queue() {
-
+queue::queue() { 
+    q_head = nullptr;
 }
 
 queue::~queue() {
-
+  queue_node * temp;
+  do {
+      temp = q_head -> next;
+      delete q_head;
+      q_head = temp;
+  } while (q_head);
+  
 }
 
 int queue::enqueue(stack & inMessages) {
