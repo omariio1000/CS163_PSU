@@ -15,7 +15,7 @@
 #include <cstdlib>
 
 struct queue_node {
-    stack * messages;
+    stack messages;
     queue_node * next;
 };
 
@@ -24,11 +24,12 @@ class queue {
         queue();
         ~queue();
 
-        int enqueue(stack * inMessages);
+        int enqueue(stack & inMessages);
         int dequeue();
         int display_all();
     private:
-        queue_node * head;
+        queue_node * q_head;
+        char * server;
 };
 
 #endif

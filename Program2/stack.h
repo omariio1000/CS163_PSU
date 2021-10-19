@@ -23,10 +23,10 @@ class stack {
         stack();
         ~stack();
 
-        int push(char * inName, char inText);
+        int push(char * inName, char * inText);
         int pop();  
         int display_all();
-        int copyStack();
+        int copyStack(stack & newStack);
 
     private:
         stack_node * head;

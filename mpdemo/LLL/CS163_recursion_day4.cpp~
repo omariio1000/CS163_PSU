@@ -1,9 +1,0 @@
-#include "list.h"
-
-float average_calc(node * head) {
-
-}
-
-int counts_and_sums(node * head, int & sum) {
-
-}

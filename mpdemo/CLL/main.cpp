@@ -11,7 +11,6 @@ int main()
 
 
 
-
     display(rear); //resulting list after your function call!
     destroy(rear);
     

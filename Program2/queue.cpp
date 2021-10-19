@@ -21,7 +21,7 @@ queue::~queue() {
 
 }
 
-int queue::enqueue(stack * inMessages) {
+int queue::enqueue(stack & inMessages) {
     return 0;
 }
 
