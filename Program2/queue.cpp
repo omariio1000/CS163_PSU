@@ -18,28 +18,28 @@ queue::queue() {
 }
 
 queue::~queue() {
-  queue_node * temp;
-  while (rear -> next) {
-      temp = rear -> next;
-      delete rear;
-      rear = temp;
-  }
-  delete rear;
-  rear = nullptr;
+   queue_node * temp = nullptr;
+
+   while (rear) {
+       temp = rear -> next -> next;
+       delete rear -> next;
+       rear -> next = temp;
+   }
+   rear = nullptr;
 }
 
-int queue::enqueue(stack *& inMessages, char * inServer) {
-    if (!inMessages || !inServer) return 0;
+int queue::enqueue(stack & inMessages, char * inServer) {
+    if (!inServer) return 0;
     if (!rear) {
         rear = new queue_node;
-        rear -> messages = inMessages;
+        inMessages.copyStack(rear -> messages);
         rear -> server = inServer;
         rear -> next = rear;
         return 1;
     }
 
     queue_node * temp = new queue_node;
-    temp -> messages = inMessages;
+    inMessages.copyStack(temp -> messages);
     temp -> server = inServer;
     temp -> next = rear -> next;
     rear -> next = temp;
@@ -68,7 +68,7 @@ int queue::display_all() {
 
 int queue::display_all(queue_node * current) {
     cout << endl << "Server Name: " << current -> server << endl;
-    current -> messages -> display_all();
+    current -> messages.display_all();
     if (current != rear) return display_all(current -> next);
     return 1;
 }

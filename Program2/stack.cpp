@@ -18,12 +18,13 @@ stack::stack() {
 }
 
 stack::~stack() {
-    stack_node * temp;
-    do {
-       temp = head -> next;
-       delete head;
-       head = temp;
-    } while (head);
+    stack_node * temp = nullptr;
+
+    while (head) {
+        temp = head -> next;
+        delete head;
+        head = temp;
+    }
     head = nullptr;
 }
 
@@ -71,8 +72,18 @@ int stack::display_all(stack_node * current) {
     }
     return 1;
 }
-/*
+
 int stack::copyStack(stack & newStack) {
-    return 0;
+    if (!head) return 0;
+    return copyStack(head, newStack.head);
 }
-*/
+
+int stack::copyStack(stack_node * current, stack_node *& newCurrent) {
+    newCurrent = new stack_node;
+    newCurrent -> name = new char[strlen(current -> name) + 1];
+    strcpy(newCurrent -> name, current -> name);
+    newCurrent -> text = new char[strlen(current -> text) + 1];
+    strcpy(newCurrent -> text, current -> text);
+    if (current -> next) return copyStack(current -> next, newCurrent -> next);
+    return 1;
+}

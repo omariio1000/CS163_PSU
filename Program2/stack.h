@@ -26,11 +26,12 @@ class stack {
         int push(char * inName, char * inText);
         int pop();  
         int display_all();
-        //int copyStack(stack & newStack);
+        int copyStack(stack & newStack);
 
     private:
         stack_node * head;
         int display_all(stack_node * current);
+        int copyStack(stack_node * current, stack_node *& newCurrent);
 };
 
 #endif
