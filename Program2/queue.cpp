@@ -1,4 +1,4 @@
-/*Omar Nassar
+/* Omar Nassar
  * Portland State University CS163
  * October 18, 2021
  * ADT implementation for storing message board using queue
@@ -18,14 +18,17 @@ queue::queue() {
 }
 
 queue::~queue() {
-   queue_node * temp = nullptr;
+    queue_node * temp = nullptr;
 
-   while (rear) {
-       temp = rear -> next -> next;
-       delete rear -> next;
-       rear -> next = temp;
-   }
-   rear = nullptr;
+    while (rear) {
+        temp = rear -> next;
+        rear -> next = rear -> next -> next;
+        delete rear -> server;
+        rear -> server = nullptr;
+        rear -> messages.~stack();
+        if (temp) delete temp;
+    }
+    rear = nullptr;
 }
 
 int queue::enqueue(stack & inMessages, char * inServer) {

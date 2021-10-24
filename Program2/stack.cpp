@@ -21,9 +21,13 @@ stack::~stack() {
     stack_node * temp = nullptr;
 
     while (head) {
-        temp = head -> next;
-        delete head;
-        head = temp;
+        temp = head;
+        head = head -> next;
+        if (temp -> name) delete temp -> name;
+        temp -> next = nullptr;
+        if (temp -> text) delete temp -> text;
+        delete temp;
+        temp = nullptr;
     }
     head = nullptr;
 }
