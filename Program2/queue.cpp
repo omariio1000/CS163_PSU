@@ -21,9 +21,11 @@ queue::~queue() {
     while (rear && rear != rear -> next) {
         queue_node * temp = rear -> next;
         rear -> next = temp -> next;
+        if (temp -> server) delete [] temp -> server;
         delete temp;
         temp = nullptr;
     }
+    if (rear -> server) delete [] rear -> server;
     delete rear; 
     rear = nullptr; 
 }
@@ -33,14 +35,16 @@ int queue::enqueue(stack & inMessages, char * inServer) {
     if (!rear) {
         rear = new queue_node;
         inMessages.copyStack(rear -> messages);
-        rear -> server = inServer;
+        rear -> server = new char[strlen(inServer) + 1];
+        strcpy(rear -> server, inServer);
         rear -> next = rear;
         return 1;
     }
 
     queue_node * temp = new queue_node;
     inMessages.copyStack(temp -> messages);
-    temp -> server = inServer;
+    temp -> server = new char[strlen(inServer) + 1];
+    strcpy(temp -> server, inServer);
     temp -> next = rear -> next;
     rear -> next = temp;
     rear = temp;

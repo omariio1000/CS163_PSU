@@ -23,9 +23,9 @@ stack::~stack() {
     while (head) {
         temp = head;
         head = head -> next;
-        if (temp -> name) delete temp -> name;
+        if (temp -> name) delete [] temp -> name;
         temp -> next = nullptr;
-        if (temp -> text) delete temp -> text;
+        if (temp -> text) delete [] temp -> text;
         delete temp;
         temp = nullptr;
     }
@@ -37,14 +37,18 @@ int stack::push(char * inName, char * inText) {
 
     if (!head) {
         head = new stack_node();
-        head -> name = inName;
-        head -> text = inText;
+        head -> name = new char[strlen(inName) + 1];
+        strcpy(head -> name, inName);
+        head -> text = new char[strlen(inText) + 1];
+        strcpy(head -> text, inText);
         return 1;
     }
 
     stack_node * temp = new stack_node();
-    temp -> name = inName;
-    temp -> text = inText;
+    temp -> name = new char[strlen(inName) + 1];
+    strcpy(temp -> name, inName);
+    temp -> text = new char[strlen(inText) + 1];
+    strcpy(temp -> text, inText);
 
     temp -> next = head;
     head = temp;
