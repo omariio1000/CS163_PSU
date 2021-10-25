@@ -95,6 +95,7 @@ int main() {
            }
 
            new_queue.enqueue(tempStack, serverName);
+           tempStack.~stack();
         }
 
         else if (answer == 2) {//Dequeue

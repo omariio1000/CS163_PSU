@@ -18,17 +18,14 @@ queue::queue() {
 }
 
 queue::~queue() {
-    queue_node * temp = nullptr;
-
-    while (rear) {
-        temp = rear -> next;
-        rear -> next = rear -> next -> next;
-        delete rear -> server;
-        rear -> server = nullptr;
-        rear -> messages.~stack();
-        if (temp) delete temp;
+    while (rear && rear != rear -> next) {
+        queue_node * temp = rear -> next;
+        rear -> next = temp -> next;
+        delete temp;
+        temp = nullptr;
     }
-    rear = nullptr;
+    delete rear; 
+    rear = nullptr; 
 }
 
 int queue::enqueue(stack & inMessages, char * inServer) {
