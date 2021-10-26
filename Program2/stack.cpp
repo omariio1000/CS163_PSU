@@ -15,6 +15,7 @@ using namespace std;
 
 stack::stack() {
     head = nullptr;
+    top_index = 0;
 }
 
 stack::~stack() {
@@ -23,9 +24,8 @@ stack::~stack() {
     while (head) {
         temp = head;
         head = head -> next;
-        if (temp -> name) delete [] temp -> name;
+        if (temp -> data) delete [] temp -> data;
         temp -> next = nullptr;
-        if (temp -> text) delete [] temp -> text;
         delete temp;
         temp = nullptr;
     }
@@ -37,61 +37,76 @@ int stack::push(char * inName, char * inText) {
 
     if (!head) {
         head = new stack_node();
-        head -> name = new char[strlen(inName) + 1];
-        strcpy(head -> name, inName);
-        head -> text = new char[strlen(inText) + 1];
-        strcpy(head -> text, inText);
-        return 1;
+        head -> data = new message[SIZE];
     }
-
-    stack_node * temp = new stack_node();
-    temp -> name = new char[strlen(inName) + 1];
-    strcpy(temp -> name, inName);
-    temp -> text = new char[strlen(inText) + 1];
-    strcpy(temp -> text, inText);
-
-    temp -> next = head;
-    head = temp;
+    
+    if (top_index == SIZE) {
+        stack_node * temp = head;
+        head = new stack_node;
+        head -> data = new message[SIZE];
+        head -> next = temp;
+        top_index = 0;
+    }
+    
+    head -> data[top_index].name = new char[strlen(inName) + 1];
+    strcpy(head -> data[top_index].name, inName);
+    head -> data[top_index].text = new char[strlen(inText) + 1];
+    strcpy(head -> data[top_index].text, inText);
+    
+    ++top_index;
 
     return 1;
 }
 
 int stack::pop() {
-    if (head) {
-        stack_node * temp = head;
-        head = head -> next;
-        delete temp;
-        temp = nullptr;
-        return 1;
+    if (!head) return 0;
+
+    --top_index;
+
+    if (top_index < 0) {
+        stack_node * temp = head -> next;
+        delete head;
+        head = temp;
+        top_index = SIZE;
     }
-    return 0;
+    return 1;
 }
 
 int stack::display_all() {
-    if (head) return display_all(head);
+    if (head) return display_all(head, top_index - 1);
     return 0;
 }
 
-int stack::display_all(stack_node * current) {
-    if (current) {
-        cout << endl << current -> name << " says:" <<endl;
-        cout << current -> text << endl;
-        return display_all(current -> next);
-    }
-    return 1;
+int stack::display_all(stack_node * current, int index) {
+    if (!current || !current -> data[index].name) return 1; 
+
+    cout << endl << current -> data[index].name << " says:" <<endl;
+    cout << current -> data[index].text << endl;
+    --index;
+    if (index < 0) return display_all(current -> next, SIZE - 1);
+    return display_all(current, index);
+    
 }
 
 int stack::copyStack(stack & newStack) {
     if (!head) return 0;
+    newStack.head = new stack_node;
+    newStack.head -> data = new message[SIZE];
+    newStack.top_index = top_index;
     return copyStack(head, newStack.head);
 }
 
 int stack::copyStack(stack_node * current, stack_node *& newCurrent) {
+    if (!current) return 1;
     newCurrent = new stack_node;
-    newCurrent -> name = new char[strlen(current -> name) + 1];
-    strcpy(newCurrent -> name, current -> name);
-    newCurrent -> text = new char[strlen(current -> text) + 1];
-    strcpy(newCurrent -> text, current -> text);
-    if (current -> next) return copyStack(current -> next, newCurrent -> next);
-    return 1;
+    newCurrent -> data = new message[SIZE];
+    int index = 0;
+    while (current -> data[index].name) {
+        newCurrent -> data[index].name = new char[strlen(current -> data[index].name) + 1];
+        strcpy(newCurrent -> data[index].name, current -> data[index].name);
+        newCurrent -> data[index].text = new char[strlen(current -> data[index].text) + 1];
+        strcpy(newCurrent -> data[index].text, current -> data[index].text);
+        ++index;
+    }
+    return copyStack(current -> next, newCurrent -> next);
 }

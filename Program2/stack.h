@@ -12,11 +12,17 @@
 #include <iostream>
 #include <cstdlib>
 
-struct stack_node {
+struct message {
     char * name = nullptr;
     char * text = nullptr;
+};
+
+struct stack_node {
+    message * data = nullptr;
     stack_node * next = nullptr;
 };
+
+const int SIZE = 5;
 
 class stack {
     public:
@@ -29,8 +35,9 @@ class stack {
         int copyStack(stack & newStack);
 
     private:
-        stack_node * head = nullptr;
-        int display_all(stack_node * current);
+        stack_node * head;
+        int top_index;
+        int display_all(stack_node * current, int index);
         int copyStack(stack_node * current, stack_node *& newCurrent);
 };
 
