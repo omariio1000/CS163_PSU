@@ -13,10 +13,12 @@
 
 using namespace std;
 
+//constructor
 queue::queue() { 
     rear = nullptr;
 }
 
+//destructor
 queue::~queue() {
     while (rear && rear != rear -> next) {
         queue_node * temp = rear -> next;
@@ -32,8 +34,12 @@ queue::~queue() {
     }
 }
 
+//function for enqueueing a stack
 int queue::enqueue(stack & inMessages, char * inServer) {
+    //if input is invalid
     if (!inServer) return 0;
+
+    //if list doesn't exist yet
     if (!rear) {
         rear = new queue_node;
         inMessages.copyStack(rear -> messages);
@@ -42,7 +48,8 @@ int queue::enqueue(stack & inMessages, char * inServer) {
         rear -> next = rear;
         return 1;
     }
-
+    
+    //adding new element to list
     queue_node * temp = new queue_node;
     inMessages.copyStack(temp -> messages);
     temp -> server = new char[strlen(inServer) + 1];
@@ -53,13 +60,19 @@ int queue::enqueue(stack & inMessages, char * inServer) {
     return 1;
 }
 
+//function for dequeueing 
 int queue::dequeue() {
+    //if rear doesn't exist can't dequeue
     if (!rear) return 0;
+
+    //if rear's next is rear
     if (rear == rear -> next) {
         delete rear;
         rear = nullptr;
         return 1;
     }
+
+    //otherwise delete first item in list
     queue_node * temp = rear -> next;
     rear -> next = rear -> next -> next;
     delete temp;
@@ -67,11 +80,13 @@ int queue::dequeue() {
     return 1;
 }
 
+//wrapper function for displaying all
 int queue::display_all() {
     if (!rear) return 0;
     return display_all(rear -> next);
 }
 
+//recursive to display all
 int queue::display_all(queue_node * current) {
     cout << endl << "Server Name: " << current -> server << endl;
     current -> messages.display_all();

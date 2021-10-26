@@ -14,7 +14,7 @@
 #include <iostream>
 #include <cstdlib>
 
-struct queue_node {
+struct queue_node {//each node in queue
     stack messages;
     char * server = nullptr;
     queue_node * next = nullptr;
@@ -22,14 +22,20 @@ struct queue_node {
 
 class queue {
     public:
+        //constructor and destructor
         queue();
         ~queue();
 
+        //function for enqueueing
         int enqueue(stack & inMessages, char * inserver);
+        //function for dequeueing
         int dequeue();
+        //function to display all
         int display_all();
     private:
-        queue_node * rear = nullptr;
+        //pointer for rear in CLL
+        queue_node * rear;
+        //recursive function to display all
         int display_all(queue_node * current);
 };
 

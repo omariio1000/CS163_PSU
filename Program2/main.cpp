@@ -14,17 +14,6 @@
 
 using namespace std;
 
-/*
-//function to reduce char array sizes and save memory in ADT
-char * parseInput(char * in) {
-    //cout << endl << in << endl;
-    char * parsed = new char[strlen(in) + 1];
-    strcpy(parsed, in);
-    //cout << endl << parsed << endl;
-    delete[] in;
-    return parsed;
-}*/
-
 int main() {
     queue new_queue;
     bool running_q = true; 
@@ -50,7 +39,6 @@ int main() {
             cin.get(serverName, 100, '\n');
             cin.clear();
             cin.ignore(100, '\n');
-            //serverName = parseInput(serverName);
 
             while (running_s) {
                 int option;
@@ -73,15 +61,14 @@ int main() {
                     cin.get(name, 100, '\n');
                     cin.clear();
                     cin.ignore(100, '\n');
-                    //name = parseInput(name);
 
                     cout << endl << "Insert the contents of the message: ";
                     cin.get(text, 1000, '\n');
                     cin.clear();
                     cin.ignore(1000, '\n');
-                    //text = parseInput(text);
 
-                    tempStack.push(name, text);
+                    //pushing data to stack object
+                    if (tempStack.push(name, text) == 0) cout << endl << "Invalid Input." << endl;
 
                     delete[] name;
                     delete[] text;
@@ -90,11 +77,11 @@ int main() {
                 }
 
                 else if (option == 2) {//Pop
-                    tempStack.pop();
+                    if (tempStack.pop() == 0) cout << endl << "Cannot Pop, Stack is Empty." << endl;
                 }
 
                 else if (option == 3) {//Display All
-                    tempStack.display_all();
+                    if (tempStack.display_all() == 0) cout << endl << "Stack is Empty!" << endl;
                 }
 
                 else if (option == 4) running_s = false; //End Server
@@ -102,18 +89,20 @@ int main() {
                 else cout << endl << "Invalid Input." << endl;
             }
 
-            new_queue.enqueue(tempStack, serverName);
+            //enqueueing stack item
+            if (new_queue.enqueue(tempStack, serverName) == 0) cout << endl << "Invalid Server Name." << endl;
+            //deleting the temporary stack
             tempStack.~stack();
             delete[] serverName;
             serverName = nullptr;
         }
 
         else if (answer == 2) {//Dequeue
-            new_queue.dequeue();
+            if (new_queue.dequeue() == 0) cout << endl << "Cannot Dequeue, Queue is Empty." << endl;
         }
 
         else if (answer == 3) {//Display All
-            new_queue.display_all();
+            if (new_queue.display_all() == 0) cout << endl << "Queue is Empty!" << endl;
         }
 
         else if (answer == 4) running_q = false; //Quit
