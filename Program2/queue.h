@@ -16,8 +16,8 @@
 
 struct queue_node {
     stack messages;
-    char * server;
-    queue_node * next;
+    char * server = nullptr;
+    queue_node * next = nullptr;
 };
 
 class queue {
@@ -29,7 +29,7 @@ class queue {
         int dequeue();
         int display_all();
     private:
-        queue_node * rear;
+        queue_node * rear = nullptr;
         int display_all(queue_node * current);
 };
 

@@ -25,9 +25,11 @@ queue::~queue() {
         delete temp;
         temp = nullptr;
     }
-    if (rear -> server) delete [] rear -> server;
-    delete rear; 
-    rear = nullptr; 
+    if (rear) {
+        if (rear -> server) delete [] rear -> server;
+        delete rear; 
+        rear = nullptr; 
+    }
 }
 
 int queue::enqueue(stack & inMessages, char * inServer) {

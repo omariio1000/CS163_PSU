@@ -13,9 +13,9 @@
 #include <cstdlib>
 
 struct stack_node {
-    char * name;
-    char * text;
-    stack_node * next;
+    char * name = nullptr;
+    char * text = nullptr;
+    stack_node * next = nullptr;
 };
 
 class stack {
@@ -29,7 +29,7 @@ class stack {
         int copyStack(stack & newStack);
 
     private:
-        stack_node * head;
+        stack_node * head = nullptr;
         int display_all(stack_node * current);
         int copyStack(stack_node * current, stack_node *& newCurrent);
 };

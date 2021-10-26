@@ -80,10 +80,10 @@ int main() {
                     text = parseInput(text);
 
                     tempStack.push(name, text);
-                    delete [] name;
-                    delete [] text;
+                    delete[] name;
+                    delete[] text;
                     name = nullptr;
-                    text = nullptr;
+                    text = nullptr; 
                 }
 
                 else if (option == 2) {//Pop
@@ -101,7 +101,7 @@ int main() {
 
             new_queue.enqueue(tempStack, serverName);
             tempStack.~stack();
-            delete [] serverName;
+            delete[] serverName;
             serverName = nullptr;
         }
 
