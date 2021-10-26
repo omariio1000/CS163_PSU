@@ -14,14 +14,16 @@
 
 using namespace std;
 
+/*
 //function to reduce char array sizes and save memory in ADT
 char * parseInput(char * in) {
     //cout << endl << in << endl;
     char * parsed = new char[strlen(in) + 1];
     strcpy(parsed, in);
     //cout << endl << parsed << endl;
+    delete[] in;
     return parsed;
-}
+}*/
 
 int main() {
     queue new_queue;
@@ -48,7 +50,7 @@ int main() {
             cin.get(serverName, 100, '\n');
             cin.clear();
             cin.ignore(100, '\n');
-            serverName = parseInput(serverName);
+            //serverName = parseInput(serverName);
 
             while (running_s) {
                 int option;
@@ -71,15 +73,16 @@ int main() {
                     cin.get(name, 100, '\n');
                     cin.clear();
                     cin.ignore(100, '\n');
-                    name = parseInput(name);
+                    //name = parseInput(name);
 
                     cout << endl << "Insert the contents of the message: ";
                     cin.get(text, 1000, '\n');
                     cin.clear();
                     cin.ignore(1000, '\n');
-                    text = parseInput(text);
+                    //text = parseInput(text);
 
                     tempStack.push(name, text);
+
                     delete[] name;
                     delete[] text;
                     name = nullptr;
