@@ -72,13 +72,22 @@ int stack::pop() {
     if (!head || !head -> data[top_index - 1].name) return 0;
 
     --top_index;
-
+    
     //index nonexistant
-    if (top_index < 0) {
+    if (top_index == 0) {
         stack_node * temp = head -> next;
+        head -> next = nullptr;
+        display_single(head -> data[top_index]);
         delete head;
         head = temp;
         top_index = SIZE;
+    }
+    else {
+        display_single(head -> data[top_index]);
+        delete[] head -> data[top_index].name;
+        head -> data[top_index].name = nullptr;
+        delete[] head -> data[top_index].text;
+        head -> data[top_index].text = nullptr;
     }
     return 1;
 }
@@ -94,12 +103,20 @@ int stack::display_all() {
 int stack::display_all(stack_node * current, int index) {
     if (!current || !current -> data[index].name) return 1; 
 
-    cout << endl << current -> data[index].name << " says:" <<endl;
-    cout << current -> data[index].text << endl;
+    display_single(current -> data[index]);
+    //cout << endl << current -> data[index].name << " says:" <<endl;
+    //cout << current -> data[index].text << endl;
     --index;
     if (index < 0) return display_all(current -> next, SIZE - 1);
     return display_all(current, index);
     
+}
+
+//function to display single item
+int stack::display_single(message displaying) {
+    cout << endl << displaying.name << " says:" << endl;
+    cout << displaying.text << endl;
+    return 1;
 }
 
 //wrapper function to copy stack

@@ -49,6 +49,8 @@ class stack {
         int display_all(stack_node * current, int index);
         //recursive function for copying stack
         int copyStack(stack_node * current, stack_node *& newCurrent);
+        //function to display single item
+        int display_single(message displaying);
 };
 
 #endif

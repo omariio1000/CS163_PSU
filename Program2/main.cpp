@@ -69,6 +69,7 @@ int main() {
 
                     //pushing data to stack object
                     if (tempStack.push(name, text) == 0) cout << endl << "Invalid Input." << endl;
+                    else cout << endl << "Message pushed on stack." << endl;
 
                     delete[] name;
                     delete[] text;
@@ -78,6 +79,7 @@ int main() {
 
                 else if (option == 2) {//Pop
                     if (tempStack.pop() == 0) cout << endl << "Cannot Pop, Stack is Empty." << endl;
+                    else cout << endl << "Latest message popped off stack." << endl;
                 }
 
                 else if (option == 3) {//Display All
@@ -91,6 +93,7 @@ int main() {
 
             //enqueueing stack item
             if (new_queue.enqueue(tempStack, serverName) == 0) cout << endl << "Invalid Server Name." << endl;
+            else cout << endl << "Server enqueued." << endl;
             //deleting the temporary stack
             tempStack.~stack();
             delete[] serverName;
@@ -99,6 +102,7 @@ int main() {
 
         else if (answer == 2) {//Dequeue
             if (new_queue.dequeue() == 0) cout << endl << "Cannot Dequeue, Queue is Empty." << endl;
+            else cout << endl << "Sever dequeued." << endl;
         }
 
         else if (answer == 3) {//Display All
