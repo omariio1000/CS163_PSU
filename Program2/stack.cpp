@@ -26,7 +26,17 @@ stack::~stack() {
     while (head) {
         temp = head;
         head = head -> next;
-        delete [] temp -> data;
+        for (int i = 0; i < SIZE; i++) {
+            if (temp -> data[i].name) {
+                delete[] temp -> data[i].name;
+                temp -> data[i].name = nullptr;
+            }
+            if (temp -> data[i].text) {
+                delete[] temp -> data[i].text;
+                temp -> data[i].text = nullptr;
+            }
+        }
+        delete[] temp -> data;
         temp -> data = nullptr;
         temp -> next = nullptr;
         delete temp;
@@ -60,7 +70,7 @@ int stack::push(char * inName, char * inText) {
     strcpy(head -> data[top_index].name, inName);
     head -> data[top_index].text = new char[strlen(inText) + 1];
     strcpy(head -> data[top_index].text, inText);
-    
+
     ++top_index;
 
     return 1;
@@ -123,8 +133,8 @@ int stack::display_single(message displaying) {
 int stack::copyStack(stack & newStack) {
     if (!head) return 0;
     //initialize new stack
-    newStack.head = new stack_node;
-    newStack.head -> data = new message[SIZE];
+    //newStack.head = new stack_node;
+    //newStack.head -> data = new message[SIZE];
     newStack.top_index = top_index;
 
     return copyStack(head, newStack.head);

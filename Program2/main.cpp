@@ -95,7 +95,7 @@ int main() {
             if (new_queue.enqueue(tempStack, serverName) == 0) cout << endl << "Invalid Server Name." << endl;
             else cout << endl << "Server enqueued." << endl;
             //deleting the temporary stack
-            tempStack.~stack();
+            //tempStack.~stack();
             delete[] serverName;
             serverName = nullptr;
         }
