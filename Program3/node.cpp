@@ -79,6 +79,11 @@ int node::display() {
     return 1;
 }
 
+int node::getPrice(int & outPrice) {
+    outPrice = price;
+    return 1;
+}
+
 bool node::compare(char * inMake, char * inModel) {
     if (strcmp(make, inMake) == 0 && strcmp(model, inModel) == 0) return true;
     return false;

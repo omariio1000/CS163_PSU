@@ -55,7 +55,7 @@ int table::addVehicle(int price, char * make, char * model, node * inData) {
 
     node * priceNode = priceTable[priceIndex];
     node * makeModelNode = makeModelTable[makeModelIndex];
-    
+
     while (priceNode) priceNode = priceNode -> next;
     priceNode = new node;
     priceNode -> addData(inData);
@@ -69,7 +69,7 @@ int table::addVehicle(int price, char * make, char * model, node * inData) {
 
 int table::displayVehicle(char * inMake, char * inModel) {
     int index = makeModelHash(inMake, inModel);
-    
+
     node * chain = makeModelTable[index];
     while (chain) {
         if (chain -> compare(inMake, inModel)) chain -> display();
@@ -83,6 +83,39 @@ int table::loadData(char * fileName) {
 }
 
 int table::removeVehicle(char * inMake, char * inModel) {
+    int makeModelIndex = makeModelHash(inMake, inModel);
+
+    node * found = makeModelTable[makeModelIndex];
+
+    while (found) {
+        if (found -> compare(inMake, inModel)) {
+            node * temp = found;
+            found = found -> next;
+            temp -> next = nullptr;
+            delete temp;
+            temp = nullptr;
+
+            int price = 0;
+            found -> getPrice(price);
+            int priceIndex = priceHash(price);
+
+            node * priceFound = priceTable[priceIndex];
+
+            while (priceFound) {
+                if (priceFound -> compare(inMake, inModel)) {
+                    temp = priceFound;
+                    priceFound = priceFound -> next;
+                    temp -> next = nullptr;
+                    delete temp;
+                    temp = nullptr;
+                }
+                else priceFound = priceFound -> next;
+            }
+
+        }
+        else found = found -> next;
+        return 1;
+    }
     return 0;
 }
 

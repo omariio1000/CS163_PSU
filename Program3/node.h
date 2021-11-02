@@ -27,6 +27,9 @@ class node {
         //displaying information of node
         int display();
 
+        //get price to delete in other hash table
+        int getPrice(int & outPrice);
+
         //comparing make and model to node's data
         bool compare(char * inMake, char * inModel);
 
