@@ -24,6 +24,8 @@ class node {
         //displaying information of node
         int display();
 
+        node * next;
+
     private:
         //data being stored in each node
         char * make;
@@ -36,7 +38,7 @@ class node {
         int mileage;
 
         //next node for chaining in hashtable
-        node * next;
+        //node * next;
 };
 
 #endif

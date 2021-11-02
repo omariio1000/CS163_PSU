@@ -20,11 +20,11 @@ const int size = 21;
 class table {
     public:
         //constructor and destructor
-        table(int tableSize = size);
+        table();
         ~table();
 
         //function to add vehicle to table
-        int addVehicle(node * inData);
+        int addVehicle(int price, char * make, char * model, node * inData);
 
         //function to display information of vehicle
         int displayVehicle(char * inMake, char * inModel);
