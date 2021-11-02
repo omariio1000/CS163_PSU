@@ -24,21 +24,16 @@ class node {
         //displaying information of node
         int display();
 
-        //copying data from one node to another
-        int copyData(node *& copying);
-
-        //retriving a node's data and copying to argument node
-        int retrieve(node *& retrieving);
-
     private:
         //data being stored in each node
         char * make;
         char * model;
-        int year;
         char * color;
+        char * information;
+
+        int year;
         int price;
         int mileage;
-        char * information;
 
         //next node for chaining in hashtable
         node * next;

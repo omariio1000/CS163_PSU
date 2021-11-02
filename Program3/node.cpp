@@ -14,26 +14,48 @@
 using namespace std;
 
 node::node() {
-
+    next = nullptr;
 }
 
 node::~node() {
-
+    delete[] make;
+    delete[] model;
+    delete[] color;
+    delete[] information;
+    make = nullptr;
+    model = nullptr;
+    color = nullptr;
+    information = nullptr;
+    delete next;
+    next = nullptr;
 }
 
 int node::addData(node * inData) {
-    return 0;
+    make = new char[strlen(inData -> make) + 1];
+    strcpy(make, inData -> make);
+
+    model = new char[strlen(inData -> model) + 1];
+    strcpy(model, inData -> model);
+
+    color = new char[strlen(inData -> model) + 1];
+    strcpy(color, inData -> model);
+
+    information = new char[strlen(inData -> model) + 1];
+    strcpy(information, inData -> model);
+
+    year = inData -> year;
+    price = inData -> price;
+    mileage = inData -> mileage;
+    return 1;
 }
 
 int node::display() {
-    return 0;
-}
+    if (!make | !model | !color | !information) return 0;
 
-int node::copyData(node *& copying) {
-    return 0;
+    cout << endl << year << " " << make << " " << model << endl;
+    cout << "Color: " << color << endl;
+    cout << mileage << " miles" << endl;
+    cout << "Notes: " << information;
+    cout << "Price: $" << price << endl; 
+    return 1;
 }
-
-int node::retrieve(node *& retrieving) {
-    return 0;
-}
-

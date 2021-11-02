@@ -1,8 +1,8 @@
-Chevrolet, Suburban, 2016, Black, 12000, 60000
-Volkswagen, Tiguan, 2020, Platinum Gray, 24332, 22719
-McLaren, 765LT, 2021, Lime Green, 579995, 987
-Ford, F-350 Super Duty, 2008, White, 17995, 52000
-Mitsubishi, Outlander Sport, 2018, Gray, 16995, 24197
-Mazda, CX-3 Touring, 2019, Blue, 19548, 43942
-Honda, Civic EX-T, 2016, Black, 15691, 85514
-Toyota, Tacoma, 2017, White, 24888, 95410
+Chevrolet|Suburban|2016|Black|12000|60000|small dent on rear bumper
+Volkswagen|Tiguan|2020|Platinum Gray|24332|22719|perfect condition
+McLaren|765LT|2021|Lime Green|579995|987|perfect condition
+Ford|F-350 Super Duty|2008|White|17995|52000|clean title
+Mitsubishi|Outlander Sport|2018|Gray|16995|24197|scratch on passenger door
+Mazda|CX-3 Touring|2019|Blue|19548|43942|clean title
+Honda|Civic EX-T|2016|Black|15691|85514|dent on front bumper
+Toyota|Tacoma|2017|White|24888|95410|engine swapped at 90000 miles
