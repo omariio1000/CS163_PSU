@@ -8,8 +8,12 @@ int main()
 
     /*  PLACE YOUR FUNCTION CALL HERE */
 
+    int count = display_inorder(root);
+    cout << endl <<"Our count value was: " << count << endl;
 
     display(root);
+
+    destroy_all(root);
 
     return 0;
 }
