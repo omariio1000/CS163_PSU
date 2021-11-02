@@ -8,8 +8,14 @@ int main()
 
     /*  PLACE YOUR FUNCTION CALL HERE */
 
-    int count = display_inorder(root);
-    cout << endl <<"Our count value was: " << count << endl;
+    //int count = display_inorder(root);
+    //cout << endl <<"Our count value was: " << count << endl;
+
+    int to_add = 0;
+    cout << "What value would you like to add: ";
+    cin >> to_add;
+    cin.ignore(100, '\n');
+    insert_BST(root, to_add);
 
     display(root);
 

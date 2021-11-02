@@ -70,9 +70,10 @@ int table::addVehicle(int price, char * make, char * model, node * inData) {
 int table::displayVehicle(char * inMake, char * inModel) {
     int index = makeModelHash(inMake, inModel);
     
-    node * chain = makeModelTable(index);
+    node * chain = makeModelTable[index];
     while (chain) {
-        //write compare function for node
+        if (chain -> compare(inMake, inModel)) chain -> display();
+        chain = chain -> next;
     }
     return 1;
 }

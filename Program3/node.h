@@ -18,11 +18,17 @@ class node {
         node();
         ~node();
 
+        //add data to node by passing in all args
+        int addData(char * inMake, char * inModel, char * inColor, char * inInformation, int inYear, int inPrice, int inMileage);
+
         //add data to node by copying from node being passed in
         int addData(node * inData);
 
         //displaying information of node
         int display();
+
+        //comparing make and model to node's data
+        bool compare(char * inMake, char * inModel);
 
         node * next;
 

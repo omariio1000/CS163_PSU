@@ -30,6 +30,25 @@ node::~node() {
     next = nullptr;
 }
 
+int node::addData(char * inMake, char * inModel, char * inColor, char * inInformation, int inYear, int inPrice, int inMileage) {
+   make = new char[strlen(inMake) + 1];
+   strcpy(make, inMake);
+   
+   model = new char[strlen(inModel) + 1];
+   strcpy(model, inModel);
+
+   color = new char[strlen(inColor) + 1];
+   strcpy(color, inColor);
+
+   information = new char[strlen(inInformation) + 1];
+   strcpy(information, inInformation);
+
+   year = inYear;
+   price = inPrice;
+   mileage = inMileage;
+   return 1;
+}
+
 int node::addData(node * inData) {
     make = new char[strlen(inData -> make) + 1];
     strcpy(make, inData -> make);
@@ -58,4 +77,9 @@ int node::display() {
     cout << "Notes: " << information;
     cout << "Price: $" << price << endl; 
     return 1;
+}
+
+bool node::compare(char * inMake, char * inModel) {
+    if (strcmp(make, inMake) == 0 && strcmp(model, inModel) == 0) return true;
+    return false;
 }
