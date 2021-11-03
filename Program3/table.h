@@ -15,7 +15,7 @@
 #include <cstdlib>
 #include <fstream>
 
-const int size = 21;
+const int size = 23;
 
 class table {
     public:

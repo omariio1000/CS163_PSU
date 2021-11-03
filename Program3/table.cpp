@@ -12,6 +12,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <cstdio>
+#include <cmath>
 
 using namespace std;
 
@@ -43,18 +44,47 @@ table::~table() {
 }
 
 int table::priceHash(int price) {
-    return 0;
+    int index;
+    index = price/10000;
+    return index % size;
 }
 
 int table::makeModelHash(char * make, char * model) {
-    return 0;
+    int index = 0;
+    
+    index += make[0] += model[strlen(model) - 1];
+    index = (int) pow(index, 2);
+    return index % size;
 }
 
 int table::addVehicle(int price, char * make, char * model, node * inData) {
     int priceIndex = priceHash(price);
     int makeModelIndex = makeModelHash(make, model);
+    
+    if (!priceTable[priceIndex]) {
+        priceTable[priceIndex] = new node;
+        priceTable[priceIndex] -> addData(inData);
+    }
+    else {
+        node * adding = priceTable[priceIndex];
+        while (adding -> next)
+            adding = adding -> next;
+        adding -> next = new node;
+        adding -> next -> addData(inData);
+    }
 
-
+    if (!makeModelTable[makeModelIndex]) {
+        makeModelTable[makeModelIndex] = new node;
+        makeModelTable[makeModelIndex] -> addData(inData);
+    }
+    else {
+        node * adding = makeModelTable[makeModelIndex];
+        while (adding -> next)
+            adding = adding -> next;
+        adding -> next = new node;
+        adding -> next -> addData(inData);
+    }
+    
     return 1;
 }
 
@@ -73,9 +103,12 @@ int table::displayAll() {
     for (int i = 0; i < size; i++) {
         if (makeModelTable[i]) {
             node * displaying = makeModelTable[i];
+            int chain = 0;
             while (displaying) {
+                cout << endl << "Index: " << i << " Chain: " << chain;
                 displaying -> display();
                 displaying = displaying -> next;
+                chain++;
             }
             delete displaying;
             displaying = nullptr;
@@ -89,24 +122,25 @@ int table::loadData(char * fileName) {
     file.open(fileName);
     if (file) {
         char * line = new char[10000];
+        char ** allInfo = new char*[7];
         while (file.getline(line, 10000)) {
-            file.getline(line, 10000);
             //cout << endl << line << endl;
             //cout << strlen(line) << endl;;
-            char ** allInfo = new char*[7];
             allInfo[0] = new char[1000];
+            memset(allInfo[0], 0, sizeof(allInfo));
             int counter = 0;
             int pos = 0;
-            for (int i = 0; i < (int) strlen(line); i++) {
-                if (line[i] != '|') {
+            for (int i = 0; i < (int) strlen(line); i++) { 
+                if (line[i] != '|' && line[i] != '\r') {
                     allInfo[counter][pos] = line[i];
                     pos++;
                 }
-                else {
+                else if (line[i] != '\r'){
                     pos++;
                     counter++;
                     pos = 0;
                     allInfo[counter] = new char[1000];
+                    memset(allInfo[counter], 0, 1000);
                 }
             }
             int year = atoi(allInfo[2]);
@@ -122,15 +156,17 @@ int table::loadData(char * fileName) {
             }*/
             delete adding;
             adding = nullptr;
+
             for (int i = 0; i < 7; i++) {
                 delete[] allInfo[i];
                 allInfo[i] = nullptr;
             }
-            delete[] allInfo; 
-            allInfo = nullptr;
+            delete[] line;
+            line = new char[10000];
+            memset(line, 0, 10000);
         }
-        delete[] line;
-        line = nullptr;
+        delete[] line; 
+        delete[] allInfo;
     }
 
     file.close();
@@ -175,5 +211,6 @@ int table::removeVehicle(char * inMake, char * inModel) {
 }
 
 int table::retrieve(int lowestPrice, int highestPrice, node **& retrieved) {
+    cout << endl << priceHash(lowestPrice) << endl << priceHash(highestPrice) << endl;
     return 0;
 }

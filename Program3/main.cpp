@@ -20,5 +20,7 @@ int main() {
     strcpy(title, "cars.txt");
     newTable.loadData(title);
     newTable.displayAll();
+    node** retrieved;
+    newTable.retrieve(10000, 250000, retrieved);
     return 0;
 }

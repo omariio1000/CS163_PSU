@@ -18,12 +18,12 @@ node::node() {
 }
 
 node::~node() {
-    node * temp = next;
-    while (temp) {
-        delete temp;
-        temp = temp -> next;
+    while (next) {
+        node * temp = next -> next;
+        next -> next = nullptr;
+        delete next;
+        next = temp;
     }
-    temp = nullptr;
 
     delete[] make;
     delete[] model;
@@ -37,22 +37,22 @@ node::~node() {
 }
 
 int node::addData(char * inMake, char * inModel, char * inColor, char * inInformation, int inYear, int inPrice, int inMileage) {
-   make = new char[strlen(inMake) + 1];
-   strcpy(make, inMake);
-   
-   model = new char[strlen(inModel) + 1];
-   strcpy(model, inModel);
+    make = new char[strlen(inMake) + 1];
+    strcpy(make, inMake);
 
-   color = new char[strlen(inColor) + 1];
-   strcpy(color, inColor);
+    model = new char[strlen(inModel) + 1];
+    strcpy(model, inModel);
 
-   information = new char[strlen(inInformation) + 1];
-   strcpy(information, inInformation);
+    color = new char[strlen(inColor) + 1];
+    strcpy(color, inColor);
 
-   year = inYear;
-   price = inPrice;
-   mileage = inMileage;
-   return 1;
+    information = new char[strlen(inInformation) + 1];
+    strcpy(information, inInformation);
+
+    year = inYear;
+    price = inPrice;
+    mileage = inMileage;
+    return 1;
 }
 
 int node::addData(node * inData) {
