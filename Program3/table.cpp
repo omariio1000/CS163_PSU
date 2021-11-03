@@ -79,6 +79,16 @@ int table::displayVehicle(char * inMake, char * inModel) {
 }
 
 int table::loadData(char * fileName) {
+    ifstream file;
+    file.open(fileName);
+    if (file) {
+      while (!file.eof()) {
+          char * fileIn;
+          file.getline(fileIn);
+      }
+    }
+    
+    file.close();
     return 0;
 }
 
