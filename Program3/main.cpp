@@ -15,5 +15,9 @@
 using namespace std;
 
 int main() {
+    table newTable;
+    char * title = new char[9];
+    strcpy(title, "cars.txt");
+    newTable.loadData(title);
     return 0;
 }

@@ -11,6 +11,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <fstream>
+#include <cstdio>
 
 using namespace std;
 
@@ -82,12 +83,44 @@ int table::loadData(char * fileName) {
     ifstream file;
     file.open(fileName);
     if (file) {
-      while (!file.eof()) {
-          char * fileIn;
-          file.getline(fileIn);
-      }
+        while (!file.eof()) {
+            char * line = new char[10000];
+            file.getline(line, 10000);
+            //cout << endl << line << endl;
+            //cout << strlen(line) << endl;;
+            char ** allInfo = new char*[7];
+            allInfo[0] = new char[1000];
+            int counter = 0;
+            int pos = 0;
+            for (int i = 0; i < (int) strlen(line); i++) {
+                if (line[i] != '|') {
+                    allInfo[counter][pos] = line[i];
+                    pos++;
+                }
+                else {
+                    pos++;
+                    allInfo[counter][pos] = '\0';
+                    counter++;
+                    pos = 0;
+                    allInfo[counter] = new char[1000];
+                }
+            }
+            allInfo[counter][pos + 1] = '\0';
+
+            int year = atoi(allInfo[2]);
+            int price;
+            int mileage;
+
+            node * adding = new node;
+            adding -> addData(allInfo[0], allInfo[1], allInfo[3], allInfo[6], year, price, mileage);
+
+            addVehicle(price, allInfo[0], allInfo[1], adding);
+            /*for (int i = 0; i < 7; i++) {
+                cout << endl << allInfo[i] << endl;
+            }*/
+        }
     }
-    
+
     file.close();
     return 0;
 }
