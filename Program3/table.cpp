@@ -54,16 +54,6 @@ int table::addVehicle(int price, char * make, char * model, node * inData) {
     int priceIndex = priceHash(price);
     int makeModelIndex = makeModelHash(make, model);
 
-    node * priceNode = priceTable[priceIndex];
-    node * makeModelNode = makeModelTable[makeModelIndex];
-
-    while (priceNode) priceNode = priceNode -> next;
-    priceNode = new node;
-    priceNode -> addData(inData);
-
-    while(makeModelNode) makeModelNode = makeModelNode -> next;
-    makeModelNode = new node;
-    makeModelNode -> addData(inData);
 
     return 1;
 }
@@ -79,12 +69,27 @@ int table::displayVehicle(char * inMake, char * inModel) {
     return 1;
 }
 
+int table::displayAll() {
+    for (int i = 0; i < size; i++) {
+        if (makeModelTable[i]) {
+            node * displaying = makeModelTable[i];
+            while (displaying) {
+                displaying -> display();
+                displaying = displaying -> next;
+            }
+            delete displaying;
+            displaying = nullptr;
+        }
+    }
+    return 1;
+}
+
 int table::loadData(char * fileName) {
     ifstream file;
     file.open(fileName);
     if (file) {
-        while (!file.eof()) {
-            char * line = new char[10000];
+        char * line = new char[10000];
+        while (file.getline(line, 10000)) {
             file.getline(line, 10000);
             //cout << endl << line << endl;
             //cout << strlen(line) << endl;;
@@ -99,17 +104,14 @@ int table::loadData(char * fileName) {
                 }
                 else {
                     pos++;
-                    allInfo[counter][pos] = '\0';
                     counter++;
                     pos = 0;
                     allInfo[counter] = new char[1000];
                 }
             }
-            allInfo[counter][pos + 1] = '\0';
-
             int year = atoi(allInfo[2]);
-            int price;
-            int mileage;
+            int price = atoi(allInfo[4]);
+            int mileage = atoi(allInfo[5]);
 
             node * adding = new node;
             adding -> addData(allInfo[0], allInfo[1], allInfo[3], allInfo[6], year, price, mileage);
@@ -118,7 +120,17 @@ int table::loadData(char * fileName) {
             /*for (int i = 0; i < 7; i++) {
                 cout << endl << allInfo[i] << endl;
             }*/
+            delete adding;
+            adding = nullptr;
+            for (int i = 0; i < 7; i++) {
+                delete[] allInfo[i];
+                allInfo[i] = nullptr;
+            }
+            delete[] allInfo; 
+            allInfo = nullptr;
         }
+        delete[] line;
+        line = nullptr;
     }
 
     file.close();

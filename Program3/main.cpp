@@ -19,5 +19,6 @@ int main() {
     char * title = new char[9];
     strcpy(title, "cars.txt");
     newTable.loadData(title);
+    newTable.displayAll();
     return 0;
 }

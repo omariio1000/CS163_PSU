@@ -29,6 +29,9 @@ class table {
         //function to display information of vehicle
         int displayVehicle(char * inMake, char * inModel);
 
+        //display all
+        int displayAll();
+
         //function to load data from file
         int loadData(char * fileName);
 

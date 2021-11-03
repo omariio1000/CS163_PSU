@@ -18,6 +18,13 @@ node::node() {
 }
 
 node::~node() {
+    node * temp = next;
+    while (temp) {
+        delete temp;
+        temp = temp -> next;
+    }
+    temp = nullptr;
+
     delete[] make;
     delete[] model;
     delete[] color;
@@ -26,7 +33,6 @@ node::~node() {
     model = nullptr;
     color = nullptr;
     information = nullptr;
-    delete next;
     next = nullptr;
 }
 
@@ -57,10 +63,10 @@ int node::addData(node * inData) {
     strcpy(model, inData -> model);
 
     color = new char[strlen(inData -> model) + 1];
-    strcpy(color, inData -> model);
+    strcpy(color, inData -> color);
 
-    information = new char[strlen(inData -> model) + 1];
-    strcpy(information, inData -> model);
+    information = new char[strlen(inData -> information) + 1];
+    strcpy(information, inData -> information);
 
     year = inData -> year;
     price = inData -> price;
@@ -74,7 +80,7 @@ int node::display() {
     cout << endl << year << " " << make << " " << model << endl;
     cout << "Color: " << color << endl;
     cout << mileage << " miles" << endl;
-    cout << "Notes: " << information;
+    cout << "Notes: " << information << endl;
     cout << "Price: $" << price << endl; 
     return 1;
 }
