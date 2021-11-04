@@ -212,6 +212,8 @@ int table::retrieve(int lowestPrice, int highestPrice, table & retrieved) {
                     char * model;
                     checking -> getMakeModel(make, model);
                     retrieved.addVehicle(make, model, checking);
+                    delete[] make;
+                    delete[] model;
                 }
                 checking = checking -> next;
             }
@@ -219,5 +221,5 @@ int table::retrieve(int lowestPrice, int highestPrice, table & retrieved) {
             checking = nullptr;
         }
     }
-    return retrieved.displayAll();
+    return 1;
 }
