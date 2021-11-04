@@ -24,7 +24,7 @@ class table {
         ~table();
 
         //function to add vehicle to table
-        int addVehicle(int price, char * make, char * model, node * inData);
+        int addVehicle(char * make, char * model, node * inData);
 
         //function to display information of vehicle
         int displayVehicle(char * inMake, char * inModel);
@@ -37,19 +37,20 @@ class table {
 
         //function to remove vehicle
         int removeVehicle(char * inMake, char * inModel);
+        int removeVehicle(node * deleting, node * previous, char * inMake, char * inModel);
 
         //retrive vehicle for price range
-        int retrieve(int lowPrice, int highPrice, node **& retrieved);
+        int retrieve(int lowPrice, int highPrice, table & retrieved);
 
     private:
         //hash function to generate index using price
-        int priceHash(int price);
+        //int priceHash(int price);
 
         //hash function to generate index using make and model
         int makeModelHash(char * make, char * model);
 
         //hash table using price to index
-        node ** priceTable;
+        //node ** priceTable;
 
         //hash table using make and model to index
         node ** makeModelTable;

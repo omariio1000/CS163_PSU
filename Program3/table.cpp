@@ -17,37 +17,37 @@
 using namespace std;
 
 table::table() {
-    priceTable = new node*[size];
+    //priceTable = new node*[size];
     makeModelTable = new node*[size];
     for (int i = 0; i < size; i++) {
-        priceTable[i] = nullptr;
+        //priceTable[i] = nullptr;
         makeModelTable[i] = nullptr;
     }
 }
 
 table::~table() {
     for (int i = 0; i < size; i++) {
-        if (priceTable[i]) {
+        /*if (priceTable[i]) {
             delete priceTable[i];
             priceTable[i] = nullptr;
-        }
+        }*/
         if (makeModelTable[i]) {
             delete makeModelTable[i];
             makeModelTable[i] = nullptr;
         }
     }
-    delete[] priceTable;
-    priceTable = nullptr;
+    //delete[] priceTable;
+    //priceTable = nullptr;
 
     delete[] makeModelTable;
     makeModelTable = nullptr;
 }
 
-int table::priceHash(int price) {
+/*int table::priceHash(int price) {
     int index;
     index = price/10000;
     return index % size;
-}
+}*/
 
 int table::makeModelHash(char * make, char * model) {
     int index = 0;
@@ -58,11 +58,11 @@ int table::makeModelHash(char * make, char * model) {
     return index % size;
 }
 
-int table::addVehicle(int price, char * make, char * model, node * inData) {
-    int priceIndex = priceHash(price);
+int table::addVehicle(char * make, char * model, node * inData) {
+    //int priceIndex = priceHash(price);
     int makeModelIndex = makeModelHash(make, model);
     
-    if (!priceTable[priceIndex]) {
+    /*if (!priceTable[priceIndex]) {
         priceTable[priceIndex] = new node;
         priceTable[priceIndex] -> addData(inData);
     }
@@ -72,7 +72,7 @@ int table::addVehicle(int price, char * make, char * model, node * inData) {
             adding = adding -> next;
         adding -> next = new node;
         adding -> next -> addData(inData);
-    }
+    }*/
 
     if (!makeModelTable[makeModelIndex]) {
         makeModelTable[makeModelIndex] = new node;
@@ -151,7 +151,7 @@ int table::loadData(char * fileName) {
             node * adding = new node;
             adding -> addData(allInfo[0], allInfo[1], allInfo[3], allInfo[6], year, price, mileage);
 
-            addVehicle(price, allInfo[0], allInfo[1], adding);
+            addVehicle(allInfo[0], allInfo[1], adding);
             /*for (int i = 0; i < 7; i++) {
                 cout << endl << allInfo[i] << endl;
             }*/
@@ -175,10 +175,49 @@ int table::loadData(char * fileName) {
 }
 
 int table::removeVehicle(char * inMake, char * inModel) {
-    return 0;
+    int index = makeModelHash(inMake, inModel);
+    if (!makeModelTable[index]) return 0;
+
+    if (makeModelTable[index] -> compare(inMake, inModel)) {
+        node * temp = makeModelTable[index] -> next;
+        makeModelTable[index] -> next = nullptr;
+        delete makeModelTable[index];
+        makeModelTable[index] = temp;
+        return 1;
+    }
+
+    else return removeVehicle(makeModelTable[index] -> next, makeModelTable[index], inMake, inModel);
 }
 
-int table::retrieve(int lowestPrice, int highestPrice, node **& retrieved) {
-    cout << endl << priceHash(lowestPrice) << endl << priceHash(highestPrice) << endl;
-    return 0;
+int table::removeVehicle(node * deleting, node * previous, char * inMake, char * inModel) {
+    if (!deleting) return 0;
+    if (deleting -> compare(inMake, inModel)) {
+        previous -> next = deleting -> next;
+        deleting -> next = nullptr;
+        delete deleting;
+        return 1;
+    }
+    return removeVehicle(deleting -> next, deleting, inMake, inModel);
+}
+
+int table::retrieve(int lowestPrice, int highestPrice, table & retrieved) {
+    for (int i = 0; i < size; i++) {
+        if (makeModelTable[i]) {
+            node * checking = makeModelTable[i];
+            while (checking) {
+                int price;
+                checking -> getPrice(price);
+                if (price >= lowestPrice && price <= highestPrice) {
+                    char * make;
+                    char * model;
+                    checking -> getMakeModel(make, model);
+                    retrieved.addVehicle(make, model, checking);
+                }
+                checking = checking -> next;
+            }
+            delete checking; 
+            checking = nullptr;
+        }
+    }
+    return retrieved.displayAll();
 }

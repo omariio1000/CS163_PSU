@@ -27,7 +27,8 @@ int main() {
     newTable.removeVehicle(make, model);
     cout << endl << "REMOVED" << endl;
     newTable.displayAll();
-    //node** retrieved;
-    //newTable.retrieve(10000, 250000, retrieved);
+    cout << endl << "RETRIEVED" << endl;
+    table retrieved;
+    newTable.retrieve(10000, 250000, retrieved);
     return 0;
 }

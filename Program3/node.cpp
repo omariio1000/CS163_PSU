@@ -84,6 +84,15 @@ int node::getPrice(int & outPrice) {
     return 1;
 }
 
+int node::getMakeModel(char *& outMake, char *& outModel) {
+    outMake = new char[strlen(make) + 1];
+    strcpy(outMake, make);
+
+    outModel = new char[strlen(model) + 1];
+    strcpy(outModel, model);
+    return 1;
+}
+
 bool node::compare(char * inMake, char * inModel) {
     if (strcmp(make, inMake) == 0 && strcmp(model, inModel) == 0) return true;
     return false;
