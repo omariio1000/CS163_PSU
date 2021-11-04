@@ -14,6 +14,10 @@
 using namespace std;
 
 node::node() {//constructor
+    make = nullptr;
+    model = nullptr;
+    color = nullptr;
+    information = nullptr;
     next = nullptr;
 }
 
