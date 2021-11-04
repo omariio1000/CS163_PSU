@@ -52,7 +52,8 @@ int table::priceHash(int price) {
 int table::makeModelHash(char * make, char * model) {
     int index = 0;
     
-    index += make[0] += model[strlen(model) - 1];
+    index += make[0];
+    index += model[strlen(model) - 1];
     index = (int) pow(index, 2);
     return index % size;
 }
@@ -174,39 +175,6 @@ int table::loadData(char * fileName) {
 }
 
 int table::removeVehicle(char * inMake, char * inModel) {
-    int makeModelIndex = makeModelHash(inMake, inModel);
-
-    node * found = makeModelTable[makeModelIndex];
-
-    while (found) {
-        if (found -> compare(inMake, inModel)) {
-            node * temp = found;
-            found = found -> next;
-            temp -> next = nullptr;
-            delete temp;
-            temp = nullptr;
-
-            int price = 0;
-            found -> getPrice(price);
-            int priceIndex = priceHash(price);
-
-            node * priceFound = priceTable[priceIndex];
-
-            while (priceFound) {
-                if (priceFound -> compare(inMake, inModel)) {
-                    temp = priceFound;
-                    priceFound = priceFound -> next;
-                    temp -> next = nullptr;
-                    delete temp;
-                    temp = nullptr;
-                }
-                else priceFound = priceFound -> next;
-            }
-
-        }
-        else found = found -> next;
-        return 1;
-    }
     return 0;
 }
 

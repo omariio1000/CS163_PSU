@@ -20,7 +20,14 @@ int main() {
     strcpy(title, "cars.txt");
     newTable.loadData(title);
     newTable.displayAll();
-    node** retrieved;
-    newTable.retrieve(10000, 250000, retrieved);
+    char * make = new char[10];
+    char * model = new char[25];
+    strcpy(make, "Ford");
+    strcpy(model, "F-350 Super Duty");
+    newTable.removeVehicle(make, model);
+    cout << endl << "REMOVED" << endl;
+    newTable.displayAll();
+    //node** retrieved;
+    //newTable.retrieve(10000, 250000, retrieved);
     return 0;
 }

@@ -18,13 +18,6 @@ node::node() {
 }
 
 node::~node() {
-    while (next) {
-        node * temp = next -> next;
-        next -> next = nullptr;
-        delete next;
-        next = temp;
-    }
-
     delete[] make;
     delete[] model;
     delete[] color;
@@ -33,6 +26,7 @@ node::~node() {
     model = nullptr;
     color = nullptr;
     information = nullptr;
+    if (next) delete next;
     next = nullptr;
 }
 
