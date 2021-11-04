@@ -30,6 +30,7 @@ class node {
         //get price to delete in other hash table
         int getPrice(int & outPrice);
 
+        //get make and model to retrieve
         int getMakeModel(char *& outMake, char *& outModel);
 
         //comparing make and model to node's data

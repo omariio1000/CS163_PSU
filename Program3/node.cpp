@@ -13,11 +13,11 @@
 
 using namespace std;
 
-node::node() {
+node::node() {//constructor
     next = nullptr;
 }
 
-node::~node() {
+node::~node() {//destructor
     delete[] make;
     delete[] model;
     delete[] color;
@@ -26,10 +26,11 @@ node::~node() {
     model = nullptr;
     color = nullptr;
     information = nullptr;
-    if (next) delete next;
+    if (next) delete next; //if there is a next node, delete it
     next = nullptr;
 }
 
+//adding data to a node
 int node::addData(char * inMake, char * inModel, char * inColor, char * inInformation, int inYear, int inPrice, int inMileage) {
     make = new char[strlen(inMake) + 1];
     strcpy(make, inMake);
@@ -49,6 +50,7 @@ int node::addData(char * inMake, char * inModel, char * inColor, char * inInform
     return 1;
 }
 
+//adding data to a node if given another node (copy)
 int node::addData(node * inData) {
     make = new char[strlen(inData -> make) + 1];
     strcpy(make, inData -> make);
@@ -68,6 +70,7 @@ int node::addData(node * inData) {
     return 1;
 }
 
+//displaying data in a node
 int node::display() {
     if (!make | !model | !color | !information) return 0;
 
@@ -79,11 +82,13 @@ int node::display() {
     return 1;
 }
 
+//getter for price
 int node::getPrice(int & outPrice) {
     outPrice = price;
     return 1;
 }
 
+//getter for make and model
 int node::getMakeModel(char *& outMake, char *& outModel) {
     outMake = new char[strlen(make) + 1];
     strcpy(outMake, make);
@@ -93,6 +98,7 @@ int node::getMakeModel(char *& outMake, char *& outModel) {
     return 1;
 }
 
+//comparing make and model to see if it's same as node
 bool node::compare(char * inMake, char * inModel) {
     if (strcmp(make, inMake) == 0 && strcmp(model, inModel) == 0) return true;
     return false;
