@@ -11,6 +11,7 @@
 #include <cctype>
 #include <iostream>
 #include <cstdlib>
+#include <vector>
 
 using namespace std;
 
@@ -147,7 +148,8 @@ int main() {
         }
 
         else if (answer == 6) {//retrieve within price range
-            table retrieving;
+            node ** retrieving = new node*[1000];
+            for (int i = 0; i < 1000; i++) retrieving[i] = nullptr;
             int low;
             int high;
 
@@ -168,7 +170,13 @@ int main() {
             cin >> yesno;
             cin.clear();
             cin.ignore(100, '\n');
-            if (yesno == 'y') retrieving.displayAll();
+            if (yesno == 'y') {
+                for (int i = 0; i < 1000; i++) {
+                    if (retrieving[i]) retrieving[i] -> display();
+                    else break;
+                }
+            }
+            delete retrieving;
         }
 
         else if (answer == 7) running = false;

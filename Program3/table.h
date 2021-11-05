@@ -14,6 +14,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <fstream>
+#include <vector>
 
 const int size = 23;
 
@@ -40,7 +41,7 @@ class table {
         int removeVehicle(node * deleting, node * previous, char * inMake, char * inModel);
 
         //retrive vehicle for price range
-        int retrieve(int lowPrice, int highPrice, table & retrieved);
+        int retrieve(int lowPrice, int highPrice, node **& retrieved);
 
     private:
         //hash function to generate index using price

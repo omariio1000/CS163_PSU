@@ -13,6 +13,7 @@
 #include <fstream>
 #include <cstdio>
 #include <cmath>
+#include <vector>
 
 using namespace std;
 
@@ -216,20 +217,16 @@ int table::removeVehicle(node * deleting, node * previous, char * inMake, char *
 }
 
 //retrieving within price range
-int table::retrieve(int lowestPrice, int highestPrice, table & retrieved) {
+int table::retrieve(int lowestPrice, int highestPrice, node **& retrieved) {
+    int counter = 0;
     for (int i = 0; i < size; i++) {
         if (makeModelTable[i]) {
             node * checking = makeModelTable[i];
             while (checking) {
-                int price;
-                checking -> getPrice(price);
-                if (price >= lowestPrice && price <= highestPrice) {
-                    char * make;
-                    char * model;
-                    checking -> getMakeModel(make, model);
-                    retrieved.addVehicle(make, model, checking);
-                    delete[] make;
-                    delete[] model;
+                if (checking -> checkPrice(lowestPrice, highestPrice)) {
+                   retrieved[counter] = new node;
+                   retrieved[counter] -> addData(checking);
+                   counter += 1;
                 }
                 checking = checking -> next;
             }

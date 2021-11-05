@@ -86,6 +86,7 @@ int node::display() {
     return 1;
 }
 
+/*
 //getter for price
 int node::getPrice(int & outPrice) {
     outPrice = price;
@@ -101,9 +102,15 @@ int node::getMakeModel(char *& outMake, char *& outModel) {
     strcpy(outModel, model);
     return 1;
 }
+*/
 
 //comparing make and model to see if it's same as node
 bool node::compare(char * inMake, char * inModel) {
     if (strcmp(make, inMake) == 0 && strcmp(model, inModel) == 0) return true;
+    return false;
+}
+
+bool node::checkPrice(int low, int high) {
+    if (price >= low && price <= high) return true;
     return false;
 }

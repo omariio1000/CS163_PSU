@@ -28,13 +28,16 @@ class node {
         int display();
 
         //get price to delete in other hash table
-        int getPrice(int & outPrice);
+        //int getPrice(int & outPrice);
 
         //get make and model to retrieve
-        int getMakeModel(char *& outMake, char *& outModel);
+        //int getMakeModel(char *& outMake, char *& outModel);
 
         //comparing make and model to node's data
         bool compare(char * inMake, char * inModel);
+
+        //check if price fits range
+        bool checkPrice(int low, int high);
 
         node * next;
 
