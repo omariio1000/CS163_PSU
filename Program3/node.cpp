@@ -36,6 +36,8 @@ node::~node() {//destructor
 
 //adding data to a node
 int node::addData(char * inMake, char * inModel, char * inColor, char * inInformation, int inYear, int inPrice, int inMileage) {
+    if (!inMake |!inModel | !inColor | !inInformation) return 0;
+
     make = new char[strlen(inMake) + 1];
     strcpy(make, inMake);
 

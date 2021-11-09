@@ -9,6 +9,15 @@ int main()
 
     /*  PLACE YOUR FUNCTION CALL HERE */
 
+    cout << endl << "Count: " << BST.count() << endl;
+    cout << endl << "Sum: " << BST.sum() << endl;
+    cout << endl << "Height: " << BST.height() << endl;
+    table newBST;
+    newBST.copy(BST);
+    cout << endl << "NEW BST" << endl;
+    newBST.display();
+    cout << endl << "displayed" << endl;
+    cout << endl << "Deleted: " << BST.remove_all() << endl;
 
 
 

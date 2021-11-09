@@ -31,7 +31,7 @@ class table {
         int displayVehicle(char * inMake, char * inModel);
 
         //display all
-        int displayAll();
+        bool displayAll();
 
         //function to load data from file
         int loadData(char * fileName);

@@ -42,7 +42,9 @@ int main() {
             cin.clear();
             cin.ignore(100, '\n');
 
-            newTable.loadData(fileName);
+            int result = newTable.loadData(fileName);
+            if (result == -1) cout << endl << "Invalid Input." << endl;
+            else if (result == 0) cout << endl << "There is no file with that name." << endl;
             delete[] fileName;
         }
 
@@ -92,9 +94,9 @@ int main() {
             cin.ignore(1000, '\n');
 
             node * car = new node;
-            car -> addData(make, model, color, information, year, price, mileage);
-
-            newTable.addVehicle(make, model, car);
+            int result = car -> addData(make, model, color, information, year, price, mileage);
+            if (result == 0) cout << endl << "Invalid Input." << endl;
+            else newTable.addVehicle(make, model, car);
 
             delete[] make;
             delete[] model;
@@ -104,7 +106,7 @@ int main() {
         }
 
         else if (answer == 3) {//display all
-            newTable.displayAll();
+            if (!newTable.displayAll()) cout << endl << "There are no vehicles in the table." << endl;
         }
 
         else if (answer == 4) {//display by make/model
@@ -121,7 +123,9 @@ int main() {
             cin.clear();
             cin.ignore(100, '\n');
 
-            newTable.displayVehicle(make, model);
+            int result = newTable.displayVehicle(make, model);
+            if (result == 2) cout << endl << "No vehicle matches make and model." << endl;
+            else if (result == 0) cout << endl << "Invalid Input." << endl;
 
             delete[] make;
             delete[] model;
@@ -141,7 +145,9 @@ int main() {
             cin.clear();
             cin.ignore(100, '\n');
 
-            newTable.removeVehicle(make, model);
+            int result = newTable.removeVehicle(make, model);
+            if (result == -1) cout << endl << "Invalid Input." << endl;
+            else if (result == 0) cout << endl << "No vehicle matches make and model." << endl;
 
             delete[] make;
             delete[] model;
@@ -163,20 +169,28 @@ int main() {
             cin.clear();
             cin.ignore(100, '\n');
 
-            newTable.retrieve(low, high, retrieving);
+            int result = newTable.retrieve(low, high, retrieving);
 
-            char yesno;
-            cout << endl << "Would you like to view what you retrieved? (y/n)" << endl << ">> ";
-            cin >> yesno;
-            cin.clear();
-            cin.ignore(100, '\n');
-            if (yesno == 'y') {
+            if (result == -1) cout << endl << "The low price is higher than the high price." << endl;
+            else if (result == 0) cout << endl << "No vehicles were found in the given range." << endl;
+            else {
+                char yesno;
+                cout << endl << "Would you like to view what you retrieved? (y/n)" << endl << ">> ";
+                cin >> yesno;
+                cin.clear();
+                cin.ignore(100, '\n');
+                if (yesno == 'y') {
+                    for (int i = 0; i < 1000; i++) {
+                        if (retrieving[i]) retrieving[i] -> display();
+                        else break;
+                    }
+                }
                 for (int i = 0; i < 1000; i++) {
-                    if (retrieving[i]) retrieving[i] -> display();
+                    if (retrieving[i]) delete retrieving[i];
                     else break;
                 }
             }
-            delete retrieving;
+            delete[] retrieving;
         }
 
         else if (answer == 7) running = false;

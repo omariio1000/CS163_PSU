@@ -62,6 +62,7 @@ int table::makeModelHash(char * make, char * model) {
 
 //adding a vehicle
 int table::addVehicle(char * make, char * model, node * inData) {
+    if (!make || !model) return 0;
     //int priceIndex = priceHash(price);
     int makeModelIndex = makeModelHash(make, model);
     
@@ -94,20 +95,27 @@ int table::addVehicle(char * make, char * model, node * inData) {
 
 //displaying vehicle with certain model or make
 int table::displayVehicle(char * inMake, char * inModel) {
+    if (!inMake || !inModel) return 0;
     int index = makeModelHash(inMake, inModel);
-
+    bool happened = false;
     node * chain = makeModelTable[index];
     while (chain) {
-        if (chain -> compare(inMake, inModel)) chain -> display();
+        if (chain -> compare(inMake, inModel)) {
+            chain -> display();
+            happened = true;
+        }
         chain = chain -> next;
     }
-    return 1;
+    if (happened) return 1;
+    return 2;
 }
 
 //displaying entire table with index and chain
-int table::displayAll() {
+bool table::displayAll() {
+    bool foundAny = false;
     for (int i = 0; i < size; i++) {
         if (makeModelTable[i]) {
+            foundAny = true;
             node * displaying = makeModelTable[i];
             int chain = 0;
             while (displaying) {
@@ -120,11 +128,12 @@ int table::displayAll() {
             displaying = nullptr;
         }
     }
-    return 1;
+    return foundAny;
 }
 
 //loading data from file
 int table::loadData(char * fileName) {
+    if (!fileName) return -1;
     ifstream file;
     file.open(fileName);
     if (file) {
@@ -183,14 +192,19 @@ int table::loadData(char * fileName) {
         delete[] line; 
         delete[] allInfo;
     }
+    else {
+        file.close();
+        return 0;
+    }
 
     file.close();
-    return 0;
+    return 1;
 }
 
 //removing vehicle by make and model
 int table::removeVehicle(char * inMake, char * inModel) {
     int index = makeModelHash(inMake, inModel);
+    if (!inMake || !inModel) return -1;
     if (!makeModelTable[index]) return 0;
 
     if (makeModelTable[index] -> compare(inMake, inModel)) {//if no need for recursion
@@ -218,6 +232,8 @@ int table::removeVehicle(node * deleting, node * previous, char * inMake, char *
 
 //retrieving within price range
 int table::retrieve(int lowestPrice, int highestPrice, node **& retrieved) {
+    if (lowestPrice > highestPrice) return -1;
+    bool foundAny = false;
     int counter = 0;
     for (int i = 0; i < size; i++) {
         if (makeModelTable[i]) {
@@ -227,6 +243,7 @@ int table::retrieve(int lowestPrice, int highestPrice, node **& retrieved) {
                    retrieved[counter] = new node;
                    retrieved[counter] -> addData(checking);
                    counter += 1;
+                   foundAny = true;
                 }
                 checking = checking -> next;
             }
@@ -234,5 +251,6 @@ int table::retrieve(int lowestPrice, int highestPrice, node **& retrieved) {
             checking = nullptr;
         }
     }
+    if (!foundAny) return 0;
     return 1;
 }
