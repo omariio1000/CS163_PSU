@@ -16,6 +16,7 @@
 #include <fstream>
 #include <vector>
 
+//hash table size (prime number)
 const int size = 23;
 
 class table {
@@ -36,7 +37,7 @@ class table {
         //function to load data from file
         int loadData(char * fileName);
 
-        //function to remove vehicle
+        //wrapper and recursive functions to remove vehicle
         int removeVehicle(char * inMake, char * inModel);
         int removeVehicle(node * deleting, node * previous, char * inMake, char * inModel);
 

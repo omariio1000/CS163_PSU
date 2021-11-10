@@ -38,6 +38,8 @@ node::~node() {//destructor
 int node::addData(char * inMake, char * inModel, char * inColor, char * inInformation, int inYear, int inPrice, int inMileage) {
     if (!inMake |!inModel | !inColor | !inInformation) return 0;
 
+    //copying over all strings
+
     make = new char[strlen(inMake) + 1];
     strcpy(make, inMake);
 
@@ -58,6 +60,9 @@ int node::addData(char * inMake, char * inModel, char * inColor, char * inInform
 
 //adding data to a node if given another node (copy)
 int node::addData(node * inData) {
+
+    //copying over all strings from other node
+
     make = new char[strlen(inData -> make) + 1];
     strcpy(make, inData -> make);
 
@@ -112,6 +117,7 @@ bool node::compare(char * inMake, char * inModel) {
     return false;
 }
 
+//checking if vehicle's price fits in range
 bool node::checkPrice(int low, int high) {
     if (price >= low && price <= high) return true;
     return false;

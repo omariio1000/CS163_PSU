@@ -99,7 +99,7 @@ int table::displayVehicle(char * inMake, char * inModel) {
     int index = makeModelHash(inMake, inModel);
     bool happened = false;
     node * chain = makeModelTable[index];
-    while (chain) {
+    while (chain) {//traversing chain 
         if (chain -> compare(inMake, inModel)) {
             chain -> display();
             happened = true;
@@ -110,15 +110,15 @@ int table::displayVehicle(char * inMake, char * inModel) {
     return 2;
 }
 
-//displaying entire table with index and chain
+//displaying entire table with index and chain (mainly for debugging)
 bool table::displayAll() {
     bool foundAny = false;
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < size; i++) {//check all indices of the table
         if (makeModelTable[i]) {
             foundAny = true;
             node * displaying = makeModelTable[i];
             int chain = 0;
-            while (displaying) {
+            while (displaying) {//checking each chain in the table
                 cout << endl << "Index: " << i << " Chain: " << chain;
                 displaying -> display();
                 displaying = displaying -> next;
@@ -145,7 +145,10 @@ int table::loadData(char * fileName) {
             //cout << endl << line << endl;
             //cout << strlen(line) << endl;;
             allInfo[0] = new char[1000];
+
+            //memset because otherwise char array was full of junk
             memset(allInfo[0], 0, sizeof(allInfo));
+
             int counter = 0;
             int pos = 0;
             for (int i = 0; i < (int) strlen(line); i++) { 
@@ -158,6 +161,8 @@ int table::loadData(char * fileName) {
                     counter++;
                     pos = 0;
                     allInfo[counter] = new char[1000];
+
+                    //memset because otherwise char array was full of junk
                     memset(allInfo[counter], 0, 1000);
                 }
             }
@@ -187,6 +192,8 @@ int table::loadData(char * fileName) {
             }
             delete[] line;
             line = new char[10000];
+
+            //memset again because array was full of junk
             memset(line, 0, 10000);
         }
         delete[] line; 
