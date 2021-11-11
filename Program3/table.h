@@ -39,7 +39,7 @@ class table {
 
         //wrapper and recursive functions to remove vehicle
         int removeVehicle(char * inMake, char * inModel);
-        int removeVehicle(node * deleting, node * previous, char * inMake, char * inModel);
+        int removeVehicle(node *& deleting, char * inMake, char * inModel);
 
         //retrive vehicle for price range
         int retrieve(int lowPrice, int highPrice, node **& retrieved);

@@ -214,27 +214,40 @@ int table::removeVehicle(char * inMake, char * inModel) {
     if (!inMake || !inModel) return -1;
     if (!makeModelTable[index]) return 0;
 
-    if (makeModelTable[index] -> compare(inMake, inModel)) {//if no need for recursion
+    /*if (makeModelTable[index] -> compare(inMake, inModel)) {//if first one matches 
         node * temp = makeModelTable[index] -> next;
         makeModelTable[index] -> next = nullptr;
         delete makeModelTable[index];
         makeModelTable[index] = temp;
-        return 1;
     }
-
-    else return removeVehicle(makeModelTable[index] -> next, makeModelTable[index], inMake, inModel);
+    
+    return removeVehicle(makeModelTable[index] -> next, makeModelTable[index], inMake, inModel);
+    */ 
+    return removeVehicle(makeModelTable[index], inMake, inModel);
 }
 
-//recursive function to delete in chain
-int table::removeVehicle(node * deleting, node * previous, char * inMake, char * inModel) {
-    if (!deleting) return 0;
+/*int table::removeVehicle(node * deleting, node * previous, char * inMake, char * inModel) {
+    if (!deleting) return 1;
     if (deleting -> compare(inMake, inModel)) {
         previous -> next = deleting -> next;
         deleting -> next = nullptr;
         delete deleting;
-        return 1;
     }
     return removeVehicle(deleting -> next, deleting, inMake, inModel);
+}*/
+
+//recursive function to delete in chain
+int table::removeVehicle(node *& deleting, char * inMake, char * inModel) {
+    if (!deleting) return 1;
+    if (deleting -> compare(inMake, inModel)) {//if matches 
+        node * temp = deleting -> next;
+        deleting -> next = nullptr;
+        delete deleting;
+        deleting = temp;
+        return removeVehicle(deleting, inMake, inModel);
+    }
+    return removeVehicle(deleting -> next, inMake, inModel);
+
 }
 
 //retrieving within price range
