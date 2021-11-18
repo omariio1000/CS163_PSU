@@ -30,6 +30,7 @@ class node {
 
         //compare data vs arg node's data (greater or lower)
         bool compare(node * comparing);
+        bool compare(char * inMake, char * inModel, int inYear);
 
         //children nodes
         node * left;

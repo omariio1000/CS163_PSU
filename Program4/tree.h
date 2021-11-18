@@ -26,10 +26,10 @@ class tree {
         int addVehicle(node * inData);
 
         //wrapper to retrieve matching vehicles
-        int retrieve(char * make, char * model, int year, node **& retrieving);
+        int retrieve(char * inMake, char * inModel, int inYear, node **& retrieving);
 
         //wrapper to remove matching vehicles
-        int remove(char * make, char * model, int year);
+        int remove(char * inMake, char * inModel, int inYear);
 
         //wrapper to find height of tree
         int height();
@@ -40,8 +40,8 @@ class tree {
     private:
         //recursive functions
         int addVehicle(node * root, node * inData);
-        int retrieve(char * make, char * model, int year, node**& retrieving, node * root);
-        int remove(char * make, char * model, int year);
+        int retrieve(char * inMake, char * inModel, int inYear, node**& retrieving, node * root);
+        int remove(char * inMake, char * inModel, int inYear, node * root);
         int height(node * root);
         int efficiency(node * root);
 
