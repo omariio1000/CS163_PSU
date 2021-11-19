@@ -59,23 +59,15 @@ int tree::remove(char * inMake, char * inModel, int inYear, node * root) {
             delete temp;
         }
         else {//two children
-            if (root -> right -> left) {//min in right subtree
-            }
-
-            else if (root -> left -> right) {//max in left subtree
-            }
-
-            else {//none of subtrees have children
-                node * temp = root;
-                root = root -> right;
-                root -> left = temp -> left;
-                temp -> left = temp -> right = nullptr;
-                delete temp;
-            }
-            
-            //go through and check subtree again
-            return remove(inMake, inModel, inYear, root);
+            node * temp = root;
+            root = inOrderSuccessor(root -> right);
+            root -> right = temp -> right;
+            root -> left = temp -> left;
+            temp -> left = temp -> right = nullptr;
+            delete temp;
         }
+        //go through and check subtree again
+        return remove(inMake, inModel, inYear, root);
     }
     if (comp == 1) {//greater
         return remove(inMake, inModel, inYear, root -> right);
