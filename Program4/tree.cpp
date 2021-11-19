@@ -38,6 +38,22 @@ int tree::remove(char * inMake, char * inModel, int inYear) {
     return remove(inMake, inModel, inYear, root);
 }
 
+node * inOrderSuccessor(node * root) {
+    if (!root -> left) {//furthest to the left on subtree
+        node * temp = root;
+        if (root -> right) {
+            root = root -> right;
+        }
+        else {
+            root = nullptr;
+        }
+        temp -> left = nullptr;
+        temp -> right = nullptr;
+        return temp;
+    }
+    else return inOrderSuccessor(root -> left);
+}
+
 int tree::remove(char * inMake, char * inModel, int inYear, node * root) {
     if (!root) return 1;
     int comp = root -> compare(inMake, inMode, inYear);
@@ -76,3 +92,19 @@ int tree::remove(char * inMake, char * inModel, int inYear, node * root) {
         return remove(inMake, inMode, inYear, root -> left);
     }
 }
+
+int table::height() {
+    if (!root) return 0;
+    return height(node * root);
+}
+
+int table::height(node * root) {
+    if (!root) return -1;
+
+    int lHeight = height(root -> left);
+    int rHeight = height(root -> right);
+
+    if (lHeight > rHeight) return lHeight + 1;
+    return rHeight + 1;
+}
+
