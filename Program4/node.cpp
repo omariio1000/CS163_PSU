@@ -29,7 +29,7 @@ node::~node() {
     delete[] color;
     delete[] information;
 
-    if (left) delete next;
+    if (left) delete left;
     if (right) delete right;
 }
 
@@ -109,7 +109,7 @@ int node::compare(char * inMake, char * inModel, int inYear) {
     else if (year < inYear) return 2;
 
     else {//same year
-        if (strcmp(make, inMake > 0)) return 1;
+        if (strcmp(make, inMake) > 0) return 1;
         else if (strcmp(make, inMake) < 0) return 2;
 
         else {//same make

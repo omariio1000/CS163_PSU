@@ -30,7 +30,7 @@ class node {
 
         //compare data vs arg node's data (greater or lower)
         bool compare(node * comparing);
-        bool compare(char * inMake, char * inModel, int inYear);
+        int compare(char * inMake, char * inModel, int inYear);
 
         //children nodes
         node * left;
@@ -41,11 +41,11 @@ class node {
         char * make;
         char * model;
         char * color;
-        char * info;
+        char * information;
 
         int year;
         int price;
-        int miles;
+        int mileage;
 };
 
 #endif
