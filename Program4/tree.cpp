@@ -27,7 +27,7 @@ int tree::addVehicle(node * inData) {
     return addVehicle(root, inData);
 }
 
-int tree::addVehicle(node * root, node * inData) {
+int tree::addVehicle(node *& root, node * inData) {
     if (!root) {
         root = new node;
         root -> addData(inData);
@@ -99,7 +99,6 @@ int tree::remove(char * inMake, char * inModel, int inYear, node * root) {
 }
 
 int tree::height() {
-    if (!root) return 0;
     return height(root);
 }
 
@@ -120,6 +119,40 @@ int tree::efficiency() {
     int rHeight = height(root -> right);
 
     return lHeight - rHeight;
+}
+
+int tree::retrieve(char * inMake, char * inModel, int inYear, node **& retrieving, bool single) {
+    if (!root) return -1;
+    return retrieve(inMake, inModel, inYear, retrieving, root, single);
+}
+
+int tree::retrieve(char * inMake, char * inModel, int inYear, node **& retrieving, node * root, bool single) {
+    if (!root) return 0;
+
+    if (root -> compare(inMake, inModel, inYear) == 1) //larger
+        return retrieve(inMake, inModel, inYear, retrieving, root -> right, single);
+    
+    else if (root -> compare(inMake, inModel, inYear) == 2) //smaller
+        return retrieve(inMake, inModel, inYear, retrieving, root -> left, single);
+    
+    
+    if (single) {
+        retrieving[0] = new node;
+        retrieving[0] -> addData(root);
+        return 1;
+    }
+    
+    int size = sizeof(retrieving)/sizeof(retrieving[0]);
+
+    for (int i = 0; i < size; i ++) {
+        if (!retrieving[i]) {
+            retrieving[i] = new node;
+            retrieving[i] -> addData(root);
+            i = size;
+        }
+    }
+    return 1 + retrieve(inMake, inModel, inYear, retrieving, root -> right, single);
+    
 }
 
 //loading data from file

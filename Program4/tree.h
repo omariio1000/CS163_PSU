@@ -37,16 +37,18 @@ class tree {
         //wrapper to find efficiency of tree
         int efficiency();
 
+        int retrieve(char * inMake, char * inModel, int inYear, node **& retrieving, bool single);
+
         //loading data from file
         int loadData(char * fileName);
 
     private:
         //recursive functions
-        int addVehicle(node * root, node * inData);
+        int addVehicle(node *& root, node * inData);
         int retrieve(char * inMake, char * inModel, int inYear, node**& retrieving, node * root);
         int remove(char * inMake, char * inModel, int inYear, node * root);
         int height(node * root);
-        //int efficiency(node * root);
+        int retrieve(char * inMake, char * inModel, int inYear, node **& retrieving, node * root, bool single);
 
         node * root;
 
