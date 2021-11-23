@@ -14,7 +14,7 @@
 
 using namespace std;
 
-node::node() {
+node::node() {//constructor
     make = nullptr;
     model = nullptr;
     color = nullptr;
@@ -23,7 +23,7 @@ node::node() {
     right = nullptr;
 }
 
-node::~node() {
+node::~node() {//destructor
     delete[] make;
     delete[] model;
     delete[] color;
@@ -92,11 +92,13 @@ int node::display() {
     return 1;
 }
 
+//displaying price of node
 int node:: displayPrice() {
     cout << price << endl;
     return 1;
 }
 
+//displaying the year make and model for visual print
 int node::displayVisual() {
     cout << year << " " << make << " " << model << endl;
     return 1;
@@ -109,6 +111,7 @@ bool node::compare(node * comparing) {
     return false;
 }
 
+//comparing two nodes to determine which is greater
 int node::compare(char * inMake, char * inModel, int inYear) {
     if (year == inYear && strcmp(make, inMake) == 0 && strcmp(model, inModel) == 0) return 0;
     if (year > inYear) return 1;
@@ -129,6 +132,7 @@ int node::compare(char * inMake, char * inModel, int inYear) {
     
 }
 
+//comparing node prices
 bool node::comparePrice(node * comparing) {
     if (price == comparing -> price || price > comparing -> price) return true;
     return false;

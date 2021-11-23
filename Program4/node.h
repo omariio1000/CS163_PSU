@@ -34,6 +34,7 @@ class node {
         bool compare(node * comparing);
         int compare(char * inMake, char * inModel, int inYear);
 
+        //compare nodes prices for sorting by price
         bool comparePrice(node * comparing);
 
         //children nodes

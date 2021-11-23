@@ -169,11 +169,11 @@ int main() {
             cin.clear();
             cin.ignore(100, '\n');
 
-            if (multiple == 'y') {
+            if (multiple == 'y') {//retrieve multiple matches
                 node ** retrieve = new node *[1000];
                 for (int i = 0; i < 1000; i++) retrieve[i] = nullptr;
                 
-                int result = newTree.retrieve(make, model, year, retrieve, false);
+                int result = newTree.retrieve(make, model, year, retrieve, false, 1000);
                 if (result == -1) cout << endl << "The tree is empty!" << endl;
                 else if (result == 0) cout << endl << "No results were found" << endl;
                 else {
@@ -199,10 +199,10 @@ int main() {
                 for (int i = 0; i < 1000; i++) if (retrieve[i]) delete retrieve[i];
                 delete[] retrieve;
             }
-            else if (multiple == 'n') {
+            else if (multiple == 'n') {//retrieve one match
                 node ** retrieve = new node *[1];
                 retrieve[0] = nullptr;
-                int result = newTree.retrieve(make, model, year, retrieve, false);
+                int result = newTree.retrieve(make, model, year, retrieve, false, 1);
                 if (result == -1) cout << endl << "The tree is empty!" << endl;
                 else if (result == 0) cout << endl << "No match was found" << endl;
                 else {
@@ -238,7 +238,7 @@ int main() {
             else cout << endl << "Your tree is unbalanced and the balance factor is: " << balance << endl;
         }
 
-        else if (answer == 8) {//price range
+        else if (answer == 8) {//display price range
             if (newTree.priceRange() == 0) cout << endl << "The tree is empty!" << endl;
         }
 

@@ -16,7 +16,7 @@
 #include <fstream>
 #include <cmath>
 
-//for visual display
+//struct for visual display
 struct Trunk {
   Trunk * prev;
   char * str;
@@ -36,9 +36,6 @@ class tree {
         //wrapper to add vehicle to tree
         int addVehicle(node * inData);
 
-        //wrapper to retrieve matching vehicles
-        int retrieve(char * inMake, char * inModel, int inYear, node **& retrieving);
-
         //wrapper to remove matching vehicles
         int remove(char * inMake, char * inModel, int inYear);
 
@@ -48,15 +45,15 @@ class tree {
         //wrapper to find efficiency of tree
         int efficiency();
 
-        int retrieve(char * inMake, char * inModel, int inYear, node **& retrieving, bool single);
-
+        //wrapper to retrieve matching vehicles
+        int retrieve(char * inMake, char * inModel, int inYear, node **& retrieving, bool single, int size);
+        
+        //wrapper to display all
         int displayAll();
 
-        int displayVehicle(char * inMake, char * inModel, int inPrice);
-
+        //wrapper to find price range
         int priceRange();
         
-
         //loading data from file
         int loadData(char * fileName);
 
@@ -66,7 +63,7 @@ class tree {
         int retrieve(char * inMake, char * inModel, int inYear, node**& retrieving, node * root);
         int remove(char * inMake, char * inModel, int inYear, node *& root);
         int height(node * root);
-        int retrieve(char * inMake, char * inModel, int inYear, node **& retrieving, node * root, bool single);
+        int retrieve(char * inMake, char * inModel, int inYear, node **& retrieving, node * root, bool single, int size);
         int displayAll(node * root, int level);
         int visualDisplay(node * root, Trunk * prev, bool isLeft);
         int displayVehicle(char * inMake, char * inModel, int inPrice, node * root);

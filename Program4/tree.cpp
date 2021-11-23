@@ -15,18 +15,21 @@
 
 using namespace std;
 
-tree::tree() {
+tree::tree() {//constructor
     root = nullptr;
 }
 
+//destructor (deleting full tree handled by node class)
 tree::~tree() {
     delete root;
 }
 
+//adding vehicle (wrapper)
 int tree::addVehicle(node * inData) {
     return addVehicle(root, inData);
 }
 
+//adding vehicle (recursive)
 int tree::addVehicle(node *& root, node * inData) {
     if (!root) {
         root = new node;
@@ -37,11 +40,13 @@ int tree::addVehicle(node *& root, node * inData) {
     return addVehicle(root -> left, inData); 
 }
 
+//removing vehicle (wrapper)
 int tree::remove(char * inMake, char * inModel, int inYear) {
     if (!root) return 0;
     return remove(inMake, inModel, inYear, root);
 }
 
+//finding inorder successor and shifting data
 node * inOrderSuccessor(node *& root) {
     if (!root -> left) {//furthest to the left on subtree
         node * temp = root;
@@ -58,22 +63,23 @@ node * inOrderSuccessor(node *& root) {
     else return inOrderSuccessor(root -> left);
 }
 
+//removing vehicle (recursive)
 int tree::remove(char * inMake, char * inModel, int inYear, node *& root) {
     if (!root) return 1;
     int comp = root -> compare(inMake, inModel, inYear);
     if (comp == 0) {//delete
-        if (!root -> right && !root -> left) {
+        if (!root -> right && !root -> left) {//no children
             delete root;
             root = nullptr;
         }
-        else if (!root -> right) {
+        else if (!root -> right) {//one child left
             node * temp = root;
             root = root -> left;
             temp -> left = nullptr;
             delete temp;
             temp = nullptr;
         }
-        else if (!root -> left) {
+        else if (!root -> left) {//one child right
             node * temp = root;
             root = root -> right;
             temp -> right = nullptr;
@@ -92,19 +98,21 @@ int tree::remove(char * inMake, char * inModel, int inYear, node *& root) {
         //go through and check subtree again
         return remove(inMake, inModel, inYear, root);
     }
-    else if (comp == 1) {//greater
+    else if (comp == 1) {//less
         return remove(inMake, inModel, inYear, root -> left);
     }
-    else if (comp == 2) {//less
+    else if (comp == 2) {//greater
         return remove(inMake, inModel, inYear, root -> right);
     }
     return 0;
 }
 
+//tree height (wrapper)
 int tree::height() {
     return height(root);
 }
 
+//tree height (recursive)
 int tree::height(node * root) {
     if (!root) return -1;
 
@@ -115,7 +123,9 @@ int tree::height(node * root) {
     return rHeight + 1;
 }
 
+//tree efficiency (balance factor)
 int tree::efficiency() {
+    //unrealistic balance factor to signify tree is empty
     if (!root) return 9999;
 
     int lHeight = height(root -> left);
@@ -124,24 +134,25 @@ int tree::efficiency() {
     return lHeight - rHeight;
 }
 
-int tree::retrieve(char * inMake, char * inModel, int inYear, node **& retrieving, bool single) {
+//retrieve matches (wrapper)
+int tree::retrieve(char * inMake, char * inModel, int inYear, node **& retrieving, bool single, int size) {
     if (!root) return -1;
-    return retrieve(inMake, inModel, inYear, retrieving, root, single);
+    return retrieve(inMake, inModel, inYear, retrieving, root, single, size);
 }
 
-int tree::retrieve(char * inMake, char * inModel, int inYear, node **& retrieving, node * root, bool single) {
+//retrieve matches (recursive)
+int tree::retrieve(char * inMake, char * inModel, int inYear, node **& retrieving, node * root, bool single, int size) {
     if (!root) return 0;
     int comp = root -> compare(inMake, inModel, inYear);
 
     if (comp == 0) {//match
-        if (single) {
+        if (single) {//if only retrieving one match
             retrieving[0] = new node;
             retrieving[0] -> addData(root);
             return 1;
         }
 
-        int size = sizeof(retrieving)/sizeof(retrieving[0]);
-
+        //if retrieving multiple matches
         for (int i = 0; i < size; i ++) {
             if (!retrieving[i]) {
                 retrieving[i] = new node;
@@ -149,23 +160,25 @@ int tree::retrieve(char * inMake, char * inModel, int inYear, node **& retrievin
                 i = size;
             }
         }
-        return 1 + retrieve(inMake, inModel, inYear, retrieving, root -> right, single);
+        return 1 + retrieve(inMake, inModel, inYear, retrieving, root -> right, single, size);
     }
-    else if (comp == 1) //larger
-        return retrieve(inMake, inModel, inYear, retrieving, root -> left, single);
+    else if (comp == 1) //smaller
+        return retrieve(inMake, inModel, inYear, retrieving, root -> left, single, size);
 
-    else if (comp == 2) //smaller
-        return retrieve(inMake, inModel, inYear, retrieving, root -> right, single);
+    else if (comp == 2) //larger
+        return retrieve(inMake, inModel, inYear, retrieving, root -> right, single, size);
 
     return 0;
 }
 
+//display all (wrapper)
 int tree::displayAll() {
     if (!root) return 0;
     visualDisplay(root, nullptr, false);
     return displayAll(root, 1);
 }
 
+//display all (recursive)
 int tree::displayAll(node * root, int level) {
     if (!root) return 0;
     int counter = 1;
@@ -176,6 +189,7 @@ int tree::displayAll(node * root, int level) {
     return counter;
 }
 
+//display price range by building new BST sorting by price
 int tree::priceRange() {
     if (!root) return 0;
     node * priceRoot = nullptr;
@@ -197,6 +211,7 @@ int tree::priceRange() {
     return 1;
 }
 
+//adding vehicles to new tree based on price
 int tree::priceAdd(node *& priceRoot, node * inData) {
     if (!priceRoot) {
         priceRoot = new node;
@@ -207,6 +222,7 @@ int tree::priceAdd(node *& priceRoot, node * inData) {
     return addVehicle(priceRoot -> left, inData); 
 }
 
+//copying from main tree to new price sorted tree
 int tree::copyOver(node *& priceRoot, node * root) {
     if (root) priceAdd(priceRoot, root);
     if (root -> left) copyOver(priceRoot, root -> left);
@@ -214,7 +230,7 @@ int tree::copyOver(node *& priceRoot, node * root) {
     return 1;
 }
 
-//loading data from file
+//loading data from file (taken from program 3)
 int tree::loadData(char * fileName) {
     if (!fileName) return -1;
     ifstream file;
@@ -291,8 +307,8 @@ int tree::loadData(char * fileName) {
     return 1;
 }
 
-
-int showTrunks(Trunk * p) {//helper function for printing
+//helper function for printing
+int showTrunks(Trunk * p) {
     if (p == NULL)
         return 0;
 
@@ -302,7 +318,9 @@ int showTrunks(Trunk * p) {//helper function for printing
     return 1;
 }
 
-
+//visual printing function
+//taken from my old BST program from high school
+//https://github.com/omariio1000/CS163/tree/master/BST
 int tree::visualDisplay(node * root, Trunk * prev, bool isLeft) {
     if (!root) return 1;
 
