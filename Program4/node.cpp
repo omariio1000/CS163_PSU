@@ -93,7 +93,12 @@ int node::display() {
 }
 
 int node:: displayPrice() {
-    cout << endl << price << endl;
+    cout << price << endl;
+    return 1;
+}
+
+int node::displayVisual() {
+    cout << year << " " << make << " " << model << endl;
     return 1;
 }
 
@@ -105,6 +110,7 @@ bool node::compare(node * comparing) {
 }
 
 int node::compare(char * inMake, char * inModel, int inYear) {
+    if (year == inYear && strcmp(make, inMake) == 0 && strcmp(model, inModel) == 0) return 0;
     if (year > inYear) return 1;
     else if (year < inYear) return 2;
 
@@ -121,4 +127,9 @@ int node::compare(char * inMake, char * inModel, int inYear) {
     //same exact make model and year
     return 0;
     
+}
+
+bool node::comparePrice(node * comparing) {
+    if (price == comparing -> price || price > comparing -> price) return true;
+    return false;
 }

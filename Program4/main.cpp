@@ -22,16 +22,15 @@ int main() {
 
     while(running) {
         int answer;
-        cout << endl << "1.  Load data from a file" << endl;
-        cout << "2.  Manually add vehicle" << endl;
-        cout << "3.  Display all" << endl;
-        cout << "4.  Display by Make, Model, and Year" << endl;
-        cout << "5.  Remove vehicle" << endl;
-        cout << "6.  Retrieve vehicle" << endl;
-        cout << "7.  Display Tree Height" << endl;
-        cout << "8.  Determine Tree Efficiency" << endl;
-        cout << "9.  Display Price Range (Low to Hight)" << endl;
-        cout << "10. Quit" << endl;
+        cout << endl << "1. Load data from a file" << endl;
+        cout << "2. Manually add vehicle" << endl;
+        cout << "3. Display all" << endl;
+        cout << "4. Remove vehicle" << endl;
+        cout << "5. Retrieve vehicle" << endl;
+        cout << "6. Display Tree Height" << endl;
+        cout << "7. Determine Tree Efficiency" << endl;
+        cout << "8. Display Price Range (Low to High)" << endl;
+        cout << "9. Quit" << endl;
         cout << "What would you like to do?" << endl;
         cout << ">> ";
 
@@ -111,39 +110,11 @@ int main() {
         }
 
         else if (answer == 3) {//display all
-            //if (!newTree.displayAll()) cout << endl << "There are no vehicles in the table." << endl;
+            int count = newTree.displayAll();
+            if (count == 0) cout << endl << "The tree is empty!" << endl;
         }
 
-        else if (answer == 4) {//display by make/model/price
-            char * make = new char[100];
-            char * model = new char[100];
-            int year;
-
-            cout << endl << "What is the make of the car?" << endl << ">> ";
-            cin.get(make, 100);
-            cin.clear();
-            cin.ignore(100, '\n');
-
-            cout << endl << "What is the model of the car?" << endl << ">> ";
-            cin.get(model, 100);
-            cin.clear();
-            cin.ignore(100, '\n');
-
-            cout << endl << "What year was this car made?" << endl << ">> ";
-            cin >> year;
-            cin.clear();
-            cin.ignore(100, '\n');
-
-            /*int result = newTree.displayVehicle(make, model, price);
-            if (result == 2) cout << endl << "No vehicle matches make and model." << endl;
-            else if (result == 0) cout << endl << "Invalid Input." << endl;
-            */
-
-            delete[] make;
-            delete[] model;
-        }
-
-        else if (answer == 5) {//remove vehicle
+        else if (answer == 4) {//remove vehicle
             char * make = new char[100];
             char * model = new char[100];
             int year;
@@ -172,7 +143,7 @@ int main() {
             delete[] model;
         }
 
-        else if (answer == 6) {//retrieve vehicle
+        else if (answer == 5) {//retrieve vehicle
             char * make = new char[100];
             char * model = new char[100];
             int year;
@@ -207,7 +178,7 @@ int main() {
                 else if (result == 0) cout << endl << "No results were found" << endl;
                 else {
                     cout << endl << "There were " << result << " matches." << endl;
-                    cout << "Would you like to view them? (y/n)" << endl << ">> ";
+                    cout << "Would you like to view your results? (y/n)" << endl << ">> ";
 
                     char yesno;
                     cin >>yesno;
@@ -233,7 +204,7 @@ int main() {
                 retrieve[0] = nullptr;
                 int result = newTree.retrieve(make, model, year, retrieve, false);
                 if (result == -1) cout << endl << "The tree is empty!" << endl;
-                else if (result == 0) cout << endl << "No results were found" << endl;
+                else if (result == 0) cout << endl << "No match was found" << endl;
                 else {
                     cout << endl << "Would you like to view your result? (y/n)" << endl << ">> ";
                     char yesno;
@@ -248,15 +219,18 @@ int main() {
                 }
             }
             else cout << endl << "Invalid Input." << endl;
+
+            delete[] make;
+            delete[] model;
         }
 
-        else if (answer == 7) {//display tree height
+        else if (answer == 6) {//display tree height
             int height = newTree.height();
             if (height == -1) cout << endl << "The tree is empty!" << endl;
             else cout << endl << "Tree height: " << height << endl;
         }
 
-        else if (answer == 8) {//tree efficiency
+        else if (answer == 7) {//tree efficiency
             int balance = newTree.efficiency();
             if (balance == 9999) cout << endl << "Either your tree is really unbalanced or it's empty!" << endl;
             else if (balance == 0 || balance == 1 || balance == -1) 
@@ -264,11 +238,11 @@ int main() {
             else cout << endl << "Your tree is unbalanced and the balance factor is: " << balance << endl;
         }
 
-        else if (answer == 9) {//price range
-
+        else if (answer == 8) {//price range
+            if (newTree.priceRange() == 0) cout << endl << "The tree is empty!" << endl;
         }
 
-        else if (answer == 10) running = false;        
+        else if (answer == 9) running = false;        
 
         else cout << endl << "Invalid Input." << endl;
     }

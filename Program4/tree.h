@@ -16,6 +16,17 @@
 #include <fstream>
 #include <cmath>
 
+//for visual display
+struct Trunk {
+  Trunk * prev;
+  char * str;
+
+  Trunk(Trunk * prev, char * str) {
+    this -> prev = prev;
+    this -> str = str;
+  }
+};
+
 class tree {
     public:
         //constructor and destructor
@@ -39,6 +50,13 @@ class tree {
 
         int retrieve(char * inMake, char * inModel, int inYear, node **& retrieving, bool single);
 
+        int displayAll();
+
+        int displayVehicle(char * inMake, char * inModel, int inPrice);
+
+        int priceRange();
+        
+
         //loading data from file
         int loadData(char * fileName);
 
@@ -46,9 +64,14 @@ class tree {
         //recursive functions
         int addVehicle(node *& root, node * inData);
         int retrieve(char * inMake, char * inModel, int inYear, node**& retrieving, node * root);
-        int remove(char * inMake, char * inModel, int inYear, node * root);
+        int remove(char * inMake, char * inModel, int inYear, node *& root);
         int height(node * root);
         int retrieve(char * inMake, char * inModel, int inYear, node **& retrieving, node * root, bool single);
+        int displayAll(node * root, int level);
+        int visualDisplay(node * root, Trunk * prev, bool isLeft);
+        int displayVehicle(char * inMake, char * inModel, int inPrice, node * root);
+        int priceAdd(node *& priceRoot, node * inData);
+        int copyOver(node *& priceRoot, node * root);
 
         node * root;
 

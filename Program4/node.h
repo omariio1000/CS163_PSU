@@ -28,9 +28,13 @@ class node {
         //display price
         int displayPrice();
 
+        int displayVisual();
+
         //compare data vs arg node's data (greater or lower)
         bool compare(node * comparing);
         int compare(char * inMake, char * inModel, int inYear);
+
+        bool comparePrice(node * comparing);
 
         //children nodes
         node * left;
