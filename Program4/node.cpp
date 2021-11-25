@@ -126,10 +126,10 @@ int node::compare(char * inMake, char * inModel, int inYear) {
             else if (strcmp(model, inModel)) return 2;
         }
     }
-    
+
     //same exact make model and year
     return 0;
-    
+
 }
 
 //comparing node prices

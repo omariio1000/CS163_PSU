@@ -172,7 +172,7 @@ int main() {
             if (multiple == 'y') {//retrieve multiple matches
                 node ** retrieve = new node *[1000];
                 for (int i = 0; i < 1000; i++) retrieve[i] = nullptr;
-                
+
                 int result = newTree.retrieve(make, model, year, retrieve, false, 1000);
                 if (result == -1) cout << endl << "The tree is empty!" << endl;
                 else if (result == 0) cout << endl << "No results were found" << endl;
@@ -193,7 +193,7 @@ int main() {
                                 retrieve[i] -> display();
                             }
                         }
-                        
+
                     }
                 }
                 for (int i = 0; i < 1000; i++) if (retrieve[i]) delete retrieve[i];

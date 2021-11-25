@@ -18,13 +18,13 @@
 
 //struct for visual display
 struct Trunk {
-  Trunk * prev;
-  char * str;
+    Trunk * prev;
+    char * str;
 
-  Trunk(Trunk * prev, char * str) {
-    this -> prev = prev;
-    this -> str = str;
-  }
+    Trunk(Trunk * prev, char * str) {
+        this -> prev = prev;
+        this -> str = str;
+    }
 };
 
 class tree {
@@ -41,19 +41,19 @@ class tree {
 
         //wrapper to find height of tree
         int height();
-        
+
         //wrapper to find efficiency of tree
         int efficiency();
 
         //wrapper to retrieve matching vehicles
         int retrieve(char * inMake, char * inModel, int inYear, node **& retrieving, bool single, int size);
-        
+
         //wrapper to display all
         int displayAll();
 
         //wrapper to find price range
         int priceRange();
-        
+
         //loading data from file
         int loadData(char * fileName);
 
