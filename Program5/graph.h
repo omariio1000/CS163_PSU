@@ -19,7 +19,7 @@
 
 class graph {
     public:
-        graph();
+        graph(int size);
         ~graph();
 
         int displayAll();
@@ -30,7 +30,7 @@ class graph {
         int displaySingle(char * location);
 
     private:
-        vertex * adjacencyList;
+        vertex ** adjacencyList;
         int list_size;
 };
 
