@@ -30,6 +30,8 @@ class graph {
         int displaySingle(char * location);
 
     private:
-        vertex * adjacency list;
+        vertex * adjacencyList;
         int list_size;
 };
+
+#endif
