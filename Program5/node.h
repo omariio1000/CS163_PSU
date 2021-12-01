@@ -33,7 +33,7 @@ class node {
 
         //finding connected vertices with DFS
         int findConnected(vertex **& visited, int size, int count);
-        
+
         //next pointer for edge list
         node * next;
     private:
@@ -44,7 +44,7 @@ class node {
         //road name (weight)
         char * road;
 
-        
+
 };
 
 #endif
