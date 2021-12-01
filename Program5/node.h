@@ -7,6 +7,8 @@
 #ifndef node_h
 #define node_h
 
+#include "vertex.h"
+
 #include <cstring>
 #include <cctype>
 #include <iostream>
@@ -14,19 +16,29 @@
 #include <fstream>
 #include <cmath>
 
-#include "vertex.h"
-
 class node {
     public:
+        //constructor and destructor
         node(char * inRoad);
         ~node();
 
-        int addAdjacent(vertex * adding);
-        int displayRoad();
+        //function to add adjacent vertex
+        int addAdjacent(class vertex * adding);
+
+        //function to display road name (weight)
+        bool displayRoad();
+
+        //function to display adjacent vertex
+        bool displayAdjacent();
         
+        //next pointer for edge list
         node * next;
     private:
-        vertex * adjacent;
+        //adjacent vertex 
+        //(using class before type because wasn't working before)
+        class vertex * adjacent;
+
+        //road name (weight)
         char * road;
 };
 

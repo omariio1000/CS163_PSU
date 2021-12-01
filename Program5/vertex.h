@@ -7,6 +7,8 @@
 #ifndef vertex_h
 #define vertex_h
 
+#include "node.h"
+
 #include <cstring>
 #include <cctype>
 #include <iostream>
@@ -14,21 +16,33 @@
 #include <fstream>
 #include <cmath>
 
-#include "node.h"
-
 class vertex {
     public:
+        //constructor and destructor
         vertex(char * inLocation);
         ~vertex();
 
-        int compare(char * inLocation);
+        //function to compare inputted char* to location name
+        bool compare(char * inLocation);
+
+        //wrapper function to add adjacent vertex
         int addAdjacent(vertex * adding, char * roadName);
+
+        //wrapper function to display adjacent vertices
         int displayAdjacent();
-        int displayLocation();
+
+        //function to display location name
+        bool displayLocation();
 
     private:
+        //name of location/intersection    
         char * location;
-        node * head;
+        //edge list head pointer
+        class node * head;
+
+        //recursive functions
+        int addAdjacent(class node *& head, vertex * adding, char * roadName);
+        int displayAdjacent(class node * head);
 };
 
 #endif

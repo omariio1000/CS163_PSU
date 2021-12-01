@@ -5,6 +5,7 @@
  */
 
 #include "node.h"
+#include "vertex.h"
 
 #include <cstring>
 #include <cctype>
@@ -15,7 +16,7 @@
 
 using namespace std;
 
-node::node(char * inRoad) {
+node::node(char * inRoad) {//constructor
     adjacent = nullptr;
     next = nullptr;
     if (inRoad) {
@@ -24,7 +25,7 @@ node::node(char * inRoad) {
     }
 }
 
-node::~node() {
+node::~node() {//destructor
     adjacent = nullptr;
     if (next) delete next;
     next = nullptr;
@@ -32,12 +33,25 @@ node::~node() {
     road = nullptr;
 } 
 
+//adding adjacent vertex to edge list
 int node::addAdjacent(vertex * adding) {
     if (!adding) return 0;
     adjacent = adding;
     return 1;
 }
 
-int node::displayRoad() {
+//displaying road name
+bool node::displayRoad() {
+    if (!road) return false;
     cout << road;
+    return true;
+}
+
+//displaying adjacent vertex
+bool node::displayAdjacent() {
+    if (!adjacent) return false;
+    adjacent -> displayLocation();
+    cout << " using ";
+    displayRoad();
+    return true;
 }
