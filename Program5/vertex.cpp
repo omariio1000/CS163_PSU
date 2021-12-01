@@ -35,8 +35,16 @@ vertex::~vertex() {//destructor
 bool vertex::compare(char * inLocation) {
     if (!inLocation) return false;
     if (strcmp(location, inLocation) == 0) return true;
-    else return false;
+    return false;
 }
+
+//compare vertices and return true if match
+bool vertex::compare(vertex * comparing) {
+    if (!comparing) return false;
+    if (strcmp(location, comparing -> location) == 0) return true;
+    return false;
+}
+
 
 //wrapper to add adjacent vertex (directional)
 int vertex::addAdjacent(vertex * adding, char * roadName) {
@@ -66,7 +74,7 @@ int vertex::displayAdjacent() {
     cout << endl;
     cout << location << ": ";
     int adjacent = displayAdjacent(head);
-    cout << "There are " << adjacent << " connected locations." << endl;
+    cout << "There are " << adjacent << " adjacent locations." << endl;
     return adjacent;
 }
 
@@ -83,4 +91,28 @@ int vertex::displayAdjacent(node * head) {
     head -> displayAdjacent();
 
     return 1 + displayAdjacent(head -> next);
+}
+
+//finding connected vertices with DFS
+int vertex::findConnected(vertex **& visited, int size, int count) {
+    bool visit = false;
+    for (int i = 0; i < size; i++) {
+        if (compare(visited[i])) {
+            visit = true;
+            break;
+        }
+        else if (!visited[i]) {
+            visited[i] = this;
+            break;
+        }
+    }
+    if (visit) return count;
+    
+    return findConnected(head, visited, size, count + 1);
+}
+
+//finding connected vertices with DFS
+int vertex::findConnected(node * head, vertex **& visited, int size, int count) {
+    if (!head) return count;
+    return head -> findConnected(visited, size, count);
 }

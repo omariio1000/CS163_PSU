@@ -40,6 +40,9 @@ class graph {
         int displayAdjacent(char * location);
         int displayAdjacent(vertex * displaying);
 
+        //function to find all connected vertices using depth first algorithm
+        int findConnected(char * location);
+
     private:
         vertex ** adjacencyList;
         int listSize;

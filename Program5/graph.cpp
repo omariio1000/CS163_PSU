@@ -97,3 +97,28 @@ int graph::displayAdjacent(vertex * displaying) {
     int adjacent = displaying -> displayAdjacent();
     return adjacent;
 }
+
+//finding connected vertices using DFS
+int graph::findConnected(char * location) {
+    vertex * start = nullptr;
+    findVertex(location, start);
+    
+    if (!start) return 0;
+
+    vertex ** visited = new vertex*[listSize];
+
+    int connected = start -> findConnected(visited, listSize, 0);
+
+    cout << endl;
+    for (int i = 0; i < listSize; i++) {
+        if (visited[i]) {
+            if (i > 0) cout << " -> ";
+            visited[i] -> displayLocation();
+            visited[i] = nullptr;
+        }
+    }
+    delete[] visited;
+    visited = nullptr;
+
+    return connected;
+}

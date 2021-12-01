@@ -30,6 +30,9 @@ class node {
 
         //function to display adjacent vertex
         bool displayAdjacent();
+
+        //finding connected vertices with DFS
+        int findConnected(vertex **& visited, int size, int count);
         
         //next pointer for edge list
         node * next;
@@ -40,6 +43,8 @@ class node {
 
         //road name (weight)
         char * road;
+
+        
 };
 
 #endif

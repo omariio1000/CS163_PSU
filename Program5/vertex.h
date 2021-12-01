@@ -22,8 +22,9 @@ class vertex {
         vertex(char * inLocation);
         ~vertex();
 
-        //function to compare inputted char* to location name
+        //functions to compare inputted char* or vertex to location name
         bool compare(char * inLocation);
+        bool compare(vertex * comparing);
 
         //wrapper function to add adjacent vertex
         int addAdjacent(vertex * adding, char * roadName);
@@ -33,6 +34,10 @@ class vertex {
 
         //function to display location name
         bool displayLocation();
+
+        //functions to find connected vertices using DFS
+        int findConnected(vertex **& visited, int size, int count);
+        int findConnected(class node * head, vertex **& visited, int size, int count);
 
     private:
         //name of location/intersection    

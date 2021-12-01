@@ -55,3 +55,10 @@ bool node::displayAdjacent() {
     displayRoad();
     return true;
 }
+
+//finding connected vertices with DFS
+int node::findConnected(vertex **& visited, int size, int count) {
+    count = adjacent -> findConnected(visited, size, count);
+    if (next) return next -> findConnected(visited, size, count);
+    return count;
+}
