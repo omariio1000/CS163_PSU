@@ -60,3 +60,12 @@ bool checkDuplicate(node * root, int inData) {
     if (root -> data == inData) return true;
     return checkDuplicate(root -> left, inData);
 }
+
+int find2Largest(node * root) {
+    if (!root) return 0;
+    if (!root -> right) {
+        cout << endl << "Largest: " << root -> data << endl;
+        return 1;
+    }  
+    return find2Largest(root -> right);
+}

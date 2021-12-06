@@ -18,7 +18,8 @@ int main()
     cin.ignore(100, '\n');
     insert_BST(root, to_add);
     
-    
+    find2Largest(root);
+
 
     int duped = duplicateWrapper(root);
     cout << endl << "You duplicated the maximum value, which was: " << duped << endl;

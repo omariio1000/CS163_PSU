@@ -31,3 +31,5 @@ int removeLeaf(node *& root);
 
 bool checkDuplicate(node * root);
 bool checkDuplicate(node * root, int data);
+
+int find2Largest(node * root);
