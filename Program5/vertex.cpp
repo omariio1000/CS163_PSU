@@ -107,7 +107,7 @@ int vertex::findConnected(vertex **& visited, int size, int count) {
         }
     }
     if (visit) return count;
-    
+
     return findConnected(head, visited, size, count + 1);
 }
 

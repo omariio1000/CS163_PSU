@@ -102,7 +102,7 @@ int graph::displayAdjacent(vertex * displaying) {
 int graph::findConnected(char * location) {
     vertex * start = nullptr;
     findVertex(location, start);
-    
+
     if (!start) return 0;
 
     vertex ** visited = new vertex*[listSize];
